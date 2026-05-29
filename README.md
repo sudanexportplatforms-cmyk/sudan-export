@@ -205,6 +205,21 @@ pnpm --filter @workspace/sudan-export run build
 
 ---
 
+## GitHub Repository
+
+**https://github.com/sudanexportplatforms-cmyk/sudan-export**
+
+The project is connected to GitHub via the Replit GitHub integration. See [`docs/github-workflow.md`](docs/github-workflow.md) for the full guide covering:
+
+- Connecting and verifying the remote
+- Committing and pushing changes
+- Pulling latest changes
+- Handling common git issues (conflicts, auth, branch mismatch)
+- Confirming `.env` is excluded and `.env.example` is committed
+- Recommended commit message format (Conventional Commits)
+
+---
+
 ## Documentation
 
 | Document | Contents |
@@ -215,6 +230,7 @@ pnpm --filter @workspace/sudan-export run build
 | [`docs/rfq-workflow.md`](docs/rfq-workflow.md) | End-to-end RFQ lifecycle |
 | [`docs/email-notifications.md`](docs/email-notifications.md) | Email queue, templates, and Resend setup |
 | [`docs/deployment.md`](docs/deployment.md) | Production checklist and troubleshooting |
+| [`docs/github-workflow.md`](docs/github-workflow.md) | GitHub connection, push/pull, commit conventions |
 
 ---
 
