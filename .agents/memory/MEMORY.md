@@ -1,0 +1,1 @@
+- [GitHub repo](github-repo.md) — repo at sudanexportplatforms-cmyk/sudan-export, connection conn_github_01KSSPQ10B6KHP313F9ZF4XRBH, push via access_token in settings
