@@ -63,6 +63,9 @@ router.get("/", requireAuth, async (req: AuthRequest, res) => {
   // Role-based filtering
   if (me.role === "buyer") {
     rows = rows.filter((r) => r.buyerId === req.userId);
+  } else if (me.role === "supplier") {
+    // Suppliers only see open/quoting RFQs (not draft, awarded, closed, cancelled)
+    rows = rows.filter((r) => r.status === "open" || r.status === "quoting");
   }
   if (status) rows = rows.filter((r) => r.status === status);
   if (buyerId) rows = rows.filter((r) => r.buyerId === buyerId);
@@ -81,7 +84,7 @@ router.post("/", requireAuth, async (req: AuthRequest, res) => {
     .values({
       referenceNumber: generateRefNumber(),
       title,
-      status: "submitted",
+      status: "open",
       buyerId: req.userId!,
       destinationCountry,
       deliveryPort,

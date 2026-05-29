@@ -39,9 +39,18 @@ router.post("/me", requireAuth, async (req: AuthRequest, res) => {
 
   let user;
   if (existing) {
+    // Allow role update only for buyer/supplier (prevents self-escalation to admin)
+    const allowedRoles = ["buyer", "supplier"] as const;
+    type AllowedRole = typeof allowedRoles[number];
+    const roleUpdate: { firstName?: string; lastName?: string; phone?: string; country?: string; role?: AllowedRole } = {
+      firstName, lastName, phone, country,
+    };
+    if (role && allowedRoles.includes(role as AllowedRole)) {
+      roleUpdate.role = role as AllowedRole;
+    }
     const [updated] = await db
       .update(usersTable)
-      .set({ firstName, lastName, phone, country })
+      .set(roleUpdate)
       .where(eq(usersTable.clerkId, clerkId))
       .returning();
     user = updated;
