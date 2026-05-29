@@ -1,0 +1,153 @@
+Before adding any new business features, please complete this UI/UX and navigation improvement phase.
+
+1. Missing Pages
+
+Please audit the current routing structure and identify any pages that exist in navigation but are not fully built.
+
+Build or complete the missing pages for:
+
+Public Website
+
+* Home
+* About Us
+* Products
+* Product Details for each core product
+* Become a Supplier
+* Become a Buyer
+* Contact Us
+* FAQ
+
+Buyer Portal
+
+* Dashboard
+* RFQs
+* New RFQ
+* RFQ Details
+* Quotations / Compare Quotations
+* Messages
+* Company Profile
+* Documents
+* Settings
+
+Supplier Portal
+
+* Dashboard
+* RFQs Received
+* RFQ Details
+* Submit Quotation
+* Quotation History
+* Messages
+* Company Profile
+* Documents / Certificates
+* Settings
+
+Admin Portal
+
+* Dashboard
+* Users
+* Companies
+* Suppliers
+* Buyers
+* RFQs
+* Quotations
+* Products
+* Email Logs
+* Reports
+* Settings
+* Audit Logs
+
+If any page is not yet connected to real data, create a clean functional placeholder and clearly mark what is pending.
+
+2. Global Navigation Improvements
+
+Please add a consistent top/header navigation for all authenticated portal pages.
+
+It must include:
+
+* Sudan Export logo/name
+* Button/link to go back to the public website
+* Language switcher: English / Arabic
+* User profile menu
+* Logout button
+* Current user role badge: Admin / Buyer / Supplier
+
+3. Logout
+
+Add a clear logout button in all portals:
+
+* Buyer portal
+* Supplier portal
+* Admin portal
+
+Logout should:
+
+* Clear session properly
+* Redirect user to the public home page or login page
+* Work on desktop and mobile
+
+4. Public Website Link
+
+Inside every portal layout, add a clear button:
+
+“Visit Website”
+
+This should route to the public homepage.
+
+5. Internationalization
+
+Implement bilingual support:
+
+* English as default
+* Arabic as second language
+* Add language switcher in the header
+* Move visible UI text into translation files
+* Do not hardcode text inside components where possible
+
+6. RTL Support
+
+When Arabic is selected:
+
+* Layout direction must change to RTL
+* Sidebar should align correctly
+* Tables and forms should be readable
+* Buttons and icons should not look broken
+* Arabic text should render correctly
+
+7. Sudan Export Branding
+
+Apply consistent brand identity:
+
+* Primary: #1F5D3B
+* Accent: #C9A24A
+* Background: white / light neutral
+* Style: professional B2B export platform
+* Consistent buttons, forms, cards, badges, tables, and dashboards
+
+8. Mobile Responsiveness
+
+Review and fix all key pages for:
+
+* Desktop
+* Tablet
+* Mobile
+
+Especially:
+
+* Sidebars
+* RFQ forms
+* Tables
+* Quotation comparison
+* Admin pages
+
+9. Final Verification
+
+After completion, please provide:
+
+* List of all routes/pages completed
+* List of pending placeholders if any
+* Confirmation logout works
+* Confirmation Visit Website button works
+* Confirmation English/Arabic switch works
+* Confirmation RTL layout works
+* Confirmation zero TypeScript errors
+* Confirmation changes are committed and pushed to GitHub
