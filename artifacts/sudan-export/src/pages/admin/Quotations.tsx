@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useListQuotations } from "@workspace/api-client-react";
+import { Link } from "wouter";
 import PortalLayout from "@/components/layout/PortalLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -66,9 +67,11 @@ export default function AdminQuotations() {
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
                   {filtered.map((q) => (
-                    <tr key={q.id} className="hover:bg-gray-50/50 transition-colors">
+                    <tr key={q.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer">
                       <td className="px-6 py-4 font-medium text-gray-900 max-w-xs truncate">
-                        {q.rfqTitle || `RFQ #${q.rfqId}`}
+                        <Link href={`/admin/quotations/${q.id}`} className="hover:text-primary hover:underline">
+                          {q.rfqTitle || `RFQ #${q.rfqId}`}
+                        </Link>
                       </td>
                       <td className="px-6 py-4 text-gray-600">
                         {q.supplierCompanyName || q.supplierName || "—"}

@@ -44,6 +44,7 @@ import AdminUsers from "@/pages/admin/Users";
 import AdminCompanies from "@/pages/admin/Companies";
 import AdminRfqs from "@/pages/admin/Rfqs";
 import AdminQuotations from "@/pages/admin/Quotations";
+import AdminQuotationDetail from "@/pages/admin/QuotationDetail";
 import AdminProducts from "@/pages/admin/Products";
 import AdminEmailLogs from "@/pages/admin/EmailLogs";
 import AdminReports from "@/pages/admin/Reports";
@@ -276,6 +277,7 @@ function ClerkProviderWithRoutes() {
             <Route path="/admin/products" component={AdminProducts} />
             <Route path="/admin/rfqs" component={AdminRfqs} />
             <Route path="/admin/quotations" component={AdminQuotations} />
+            <Route path="/admin/quotations/:quotationId" component={AdminQuotationDetail} />
             <Route path="/admin/email-logs" component={AdminEmailLogs} />
             <Route path="/admin/reports" component={AdminReports} />
             <Route path="/admin/audit-logs" component={AdminAuditLogs} />
