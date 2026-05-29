@@ -366,3 +366,17 @@
     inset: -1px;
   }
 }
+
+/* Arabic / RTL typography */
+[dir="rtl"] {
+  font-family: 'Noto Sans Arabic', 'Inter', sans-serif;
+}
+
+[dir="rtl"] h1,
+[dir="rtl"] h2,
+[dir="rtl"] h3,
+[dir="rtl"] h4,
+[dir="rtl"] h5,
+[dir="rtl"] h6 {
+  letter-spacing: 0;
+}

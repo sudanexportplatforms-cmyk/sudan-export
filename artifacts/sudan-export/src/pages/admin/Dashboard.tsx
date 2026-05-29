@@ -3,14 +3,16 @@ import PortalLayout from "@/components/layout/PortalLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Users, Building2, FileText, CheckCircle2, ShieldAlert } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 export default function AdminDashboard() {
   const { data: stats, isLoading: statsLoading } = useGetAdminStats();
   const { data: activities, isLoading: activitiesLoading } = useGetRecentActivity();
+  const { t } = useTranslation();
 
   if (statsLoading || activitiesLoading) {
     return (
-      <PortalLayout role="admin" title="Dashboard">
+      <PortalLayout role="admin" title={t("admin.dashboard.title")}>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
         </div>
@@ -19,7 +21,7 @@ export default function AdminDashboard() {
   }
 
   return (
-    <PortalLayout role="admin" title="Dashboard">
+    <PortalLayout role="admin" title={t("admin.dashboard.title")}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 mb-8">
         <Card className="border-none shadow-sm">
           <CardContent className="p-5 flex items-center gap-4">
@@ -27,7 +29,7 @@ export default function AdminDashboard() {
               <Users className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Buyers</p>
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{t("admin.dashboard.buyers")}</p>
               <h3 className="text-xl font-bold text-gray-900">{stats?.totalBuyers || 0}</h3>
             </div>
           </CardContent>
@@ -39,19 +41,19 @@ export default function AdminDashboard() {
               <Building2 className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Suppliers</p>
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{t("admin.dashboard.suppliers")}</p>
               <h3 className="text-xl font-bold text-gray-900">{stats?.totalSuppliers || 0}</h3>
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="border-none shadow-sm">
           <CardContent className="p-5 flex items-center gap-4">
             <div className="p-2 bg-amber-50 text-amber-600 rounded-lg">
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Total RFQs</p>
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{t("admin.dashboard.totalRfqs")}</p>
               <h3 className="text-xl font-bold text-gray-900">{stats?.totalRfqs || 0}</h3>
             </div>
           </CardContent>
@@ -63,7 +65,7 @@ export default function AdminDashboard() {
               <CheckCircle2 className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Deals</p>
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{t("admin.dashboard.deals")}</p>
               <h3 className="text-xl font-bold text-gray-900">{stats?.awardedDeals || 0}</h3>
             </div>
           </CardContent>
@@ -75,7 +77,7 @@ export default function AdminDashboard() {
               <ShieldAlert className="w-5 h-5" />
             </div>
             <div>
-              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">Pending Verify</p>
+              <p className="text-xs font-medium text-gray-500 uppercase tracking-wider">{t("admin.dashboard.pendingVerify")}</p>
               <h3 className="text-xl font-bold text-gray-900">{stats?.pendingVerifications || 0}</h3>
             </div>
           </CardContent>
@@ -86,7 +88,7 @@ export default function AdminDashboard() {
         <div className="lg:col-span-2">
           <Card className="border-none shadow-sm">
             <CardHeader className="border-b border-gray-100 pb-4">
-              <CardTitle className="text-lg font-bold">Platform Activity</CardTitle>
+              <CardTitle className="text-lg font-bold">{t("admin.dashboard.platformActivity")}</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               {activities && activities.length > 0 ? (
@@ -110,7 +112,7 @@ export default function AdminDashboard() {
                 </div>
               ) : (
                 <div className="p-8 text-center text-gray-500">
-                  <p>No recent activity.</p>
+                  <p>{t("common.noActivity")}</p>
                 </div>
               )}
             </CardContent>

@@ -3,14 +3,16 @@ import PortalLayout from "@/components/layout/PortalLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { FileText, Send, CheckCircle2, TrendingUp } from "lucide-react";
 import { formatDistanceToNow } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 export default function SupplierDashboard() {
   const { data: stats, isLoading: statsLoading } = useGetSupplierStats();
   const { data: activities, isLoading: activitiesLoading } = useGetRecentActivity();
+  const { t } = useTranslation();
 
   if (statsLoading || activitiesLoading) {
     return (
-      <PortalLayout role="supplier" title="Dashboard">
+      <PortalLayout role="supplier" title={t("supplier.dashboard.title")}>
         <div className="flex items-center justify-center h-64">
           <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
         </div>
@@ -19,7 +21,7 @@ export default function SupplierDashboard() {
   }
 
   return (
-    <PortalLayout role="supplier" title="Dashboard">
+    <PortalLayout role="supplier" title={t("supplier.dashboard.title")}>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <Card className="border-none shadow-sm">
           <CardContent className="p-6 flex items-center gap-4">
@@ -27,19 +29,19 @@ export default function SupplierDashboard() {
               <FileText className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-500">RFQs Received</p>
+              <p className="text-sm font-medium text-gray-500">{t("supplier.dashboard.rfqsReceived")}</p>
               <h3 className="text-2xl font-bold text-gray-900">{stats?.totalRfqsReceived || 0}</h3>
             </div>
           </CardContent>
         </Card>
-        
+
         <Card className="border-none shadow-sm">
           <CardContent className="p-6 flex items-center gap-4">
             <div className="p-3 bg-amber-50 text-amber-600 rounded-lg">
               <Send className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-500">Pending Quotes</p>
+              <p className="text-sm font-medium text-gray-500">{t("supplier.dashboard.pendingQuotes")}</p>
               <h3 className="text-2xl font-bold text-gray-900">{stats?.pendingQuotations || 0}</h3>
             </div>
           </CardContent>
@@ -51,7 +53,7 @@ export default function SupplierDashboard() {
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-500">Awarded</p>
+              <p className="text-sm font-medium text-gray-500">{t("supplier.dashboard.awarded")}</p>
               <h3 className="text-2xl font-bold text-gray-900">{stats?.awardedQuotations || 0}</h3>
             </div>
           </CardContent>
@@ -63,9 +65,9 @@ export default function SupplierDashboard() {
               <TrendingUp className="w-6 h-6" />
             </div>
             <div>
-              <p className="text-sm font-medium text-gray-500">Success Rate</p>
+              <p className="text-sm font-medium text-gray-500">{t("supplier.dashboard.successRate")}</p>
               <h3 className="text-2xl font-bold text-gray-900">
-                {stats?.successRate ? `${stats.successRate.toFixed(1)}%` : '0%'}
+                {stats?.successRate ? `${stats.successRate.toFixed(1)}%` : "0%"}
               </h3>
             </div>
           </CardContent>
@@ -76,7 +78,7 @@ export default function SupplierDashboard() {
         <div className="lg:col-span-2">
           <Card className="border-none shadow-sm">
             <CardHeader className="border-b border-gray-100 pb-4">
-              <CardTitle className="text-lg font-bold">Recent Activity</CardTitle>
+              <CardTitle className="text-lg font-bold">{t("supplier.dashboard.recentActivity")}</CardTitle>
             </CardHeader>
             <CardContent className="p-0">
               {activities && activities.length > 0 ? (
@@ -98,12 +100,13 @@ export default function SupplierDashboard() {
                 </div>
               ) : (
                 <div className="p-8 text-center text-gray-500">
-                  <p>No recent activity.</p>
+                  <p>{t("supplier.dashboard.noActivity")}</p>
                 </div>
               )}
             </CardContent>
           </Card>
         </div>
+
       </div>
     </PortalLayout>
   );

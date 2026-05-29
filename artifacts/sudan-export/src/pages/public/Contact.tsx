@@ -6,42 +6,24 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import PublicLayout from "@/components/layout/PublicLayout";
-
-const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email",
-    value: "support@sudanexport.com",
-    detail: "We reply within 1 business day",
-  },
-  {
-    icon: Phone,
-    label: "Phone",
-    value: "+249 (0) 18 000 0000",
-    detail: "Sun–Thu, 8:00 – 17:00 (EAT)",
-  },
-  {
-    icon: MapPin,
-    label: "Address",
-    value: "Khartoum, Sudan",
-    detail: "Export Trade Tower, Block 7",
-  },
-  {
-    icon: Clock,
-    label: "Office Hours",
-    value: "Sun – Thu, 8:00 – 17:00",
-    detail: "Eastern Africa Time (UTC+3)",
-  },
-];
+import { useTranslation } from "react-i18next";
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const { t } = useTranslation();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitted(true);
   };
+
+  const contactInfo = [
+    { icon: Mail, label: t("contact.info.emailLabel"), value: t("contact.info.emailVal"), detail: t("contact.info.emailSub") },
+    { icon: Phone, label: t("contact.info.phoneLabel"), value: t("contact.info.phoneVal"), detail: t("contact.info.phoneSub") },
+    { icon: MapPin, label: t("contact.info.addressLabel"), value: t("contact.info.addressVal"), detail: t("contact.info.addressSub") },
+    { icon: Clock, label: t("contact.info.hoursLabel"), value: t("contact.info.hoursVal"), detail: t("contact.info.hoursSub") },
+  ];
 
   return (
     <PublicLayout>
@@ -49,12 +31,10 @@ export default function Contact() {
         <div className="container mx-auto px-4">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary font-medium text-sm mb-4">
-              Contact Us
+              {t("contact.badge")}
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h1>
-            <p className="text-lg text-gray-600">
-              Have questions about trading on Sudan Export Platform? Our team is here to help.
-            </p>
+            <h1 className="text-4xl font-bold text-gray-900 mb-4">{t("contact.title")}</h1>
+            <p className="text-lg text-gray-600">{t("contact.subtitle")}</p>
           </div>
         </div>
       </section>
@@ -69,10 +49,7 @@ export default function Contact() {
                     <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                       <Send className="w-8 h-8 text-primary" />
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-900 mb-2">Message Sent!</h2>
-                    <p className="text-gray-600">
-                      Thank you for reaching out. Our team will get back to you within one business day.
-                    </p>
+                    <h2 className="text-2xl font-bold text-gray-900 mb-2">{t("contact.form.success")}</h2>
                     <Button
                       className="mt-6 bg-primary hover:bg-primary/90"
                       onClick={() => {
@@ -80,32 +57,32 @@ export default function Contact() {
                         setForm({ name: "", email: "", subject: "", message: "" });
                       }}
                     >
-                      Send Another Message
+                      {t("contact.form.submit")}
                     </Button>
                   </CardContent>
                 </Card>
               ) : (
                 <Card className="border-none shadow-sm">
                   <CardContent className="p-6 sm:p-8">
-                    <h2 className="text-xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
+                    <h2 className="text-xl font-bold text-gray-900 mb-6">{t("contact.form.title")}</h2>
                     <form onSubmit={handleSubmit} className="space-y-5">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-1.5">
-                          <Label htmlFor="name">Full Name</Label>
+                          <Label htmlFor="name">{t("contact.form.name")}</Label>
                           <Input
                             id="name"
-                            placeholder="John Smith"
+                            placeholder={t("contact.form.namePh")}
                             value={form.name}
                             onChange={(e) => setForm({ ...form, name: e.target.value })}
                             required
                           />
                         </div>
                         <div className="space-y-1.5">
-                          <Label htmlFor="email">Email Address</Label>
+                          <Label htmlFor="email">{t("contact.form.email")}</Label>
                           <Input
                             id="email"
                             type="email"
-                            placeholder="john@company.com"
+                            placeholder={t("contact.form.emailPh")}
                             value={form.email}
                             onChange={(e) => setForm({ ...form, email: e.target.value })}
                             required
@@ -113,20 +90,20 @@ export default function Contact() {
                         </div>
                       </div>
                       <div className="space-y-1.5">
-                        <Label htmlFor="subject">Subject</Label>
+                        <Label htmlFor="subject">{t("contact.form.subject")}</Label>
                         <Input
                           id="subject"
-                          placeholder="How can we help?"
+                          placeholder={t("contact.form.subjectPh")}
                           value={form.subject}
                           onChange={(e) => setForm({ ...form, subject: e.target.value })}
                           required
                         />
                       </div>
                       <div className="space-y-1.5">
-                        <Label htmlFor="message">Message</Label>
+                        <Label htmlFor="message">{t("contact.form.message")}</Label>
                         <Textarea
                           id="message"
-                          placeholder="Tell us more about your enquiry..."
+                          placeholder={t("contact.form.messagePh")}
                           rows={6}
                           value={form.message}
                           onChange={(e) => setForm({ ...form, message: e.target.value })}
@@ -134,8 +111,8 @@ export default function Contact() {
                         />
                       </div>
                       <Button type="submit" className="w-full bg-primary hover:bg-primary/90 h-11">
-                        <Send className="w-4 h-4 mr-2" />
-                        Send Message
+                        <Send className="w-4 h-4 ltr:mr-2 rtl:ml-2" />
+                        {t("contact.form.submit")}
                       </Button>
                     </form>
                   </CardContent>

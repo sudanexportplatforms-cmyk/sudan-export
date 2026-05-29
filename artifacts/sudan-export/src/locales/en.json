@@ -1,0 +1,596 @@
+{
+  "nav": {
+    "products": "Products",
+    "aboutUs": "About Us",
+    "faq": "FAQ",
+    "contact": "Contact",
+    "joinPlatform": "Join Platform",
+    "becomeSupplier": "Become a Supplier",
+    "becomeBuyer": "Become a Buyer",
+    "signIn": "Sign In",
+    "getStarted": "Get Started",
+    "register": "Register"
+  },
+  "footer": {
+    "description": "Sudan's premier B2B marketplace connecting verified agricultural exporters with global buyers. Transparent, secure, and efficient trade.",
+    "platform": "Platform",
+    "joinUs": "Join Us",
+    "rights": "© {{year}} Sudan Export Platform. All rights reserved.",
+    "tagline": "Connecting Sudan to the world."
+  },
+  "portal": {
+    "visitWebsite": "Visit Website",
+    "website": "Website",
+    "signOut": "Sign Out",
+    "nav": {
+      "dashboard": "Dashboard",
+      "myRfqs": "My RFQs",
+      "quotations": "Quotations",
+      "messages": "Messages",
+      "companyProfile": "Company Profile",
+      "documents": "Documents",
+      "settings": "Settings",
+      "rfqsReceived": "RFQs Received",
+      "myQuotations": "My Quotations",
+      "products": "Products",
+      "users": "Users",
+      "companies": "Companies",
+      "allRfqs": "All RFQs",
+      "allQuotations": "All Quotations",
+      "emailLogs": "Email Logs",
+      "reports": "Reports",
+      "auditLogs": "Audit Logs"
+    },
+    "roles": {
+      "buyer": "Buyer",
+      "supplier": "Supplier",
+      "admin": "Admin"
+    }
+  },
+  "common": {
+    "loading": "Loading...",
+    "noData": "No data available",
+    "save": "Save",
+    "cancel": "Cancel",
+    "submit": "Submit",
+    "edit": "Edit",
+    "delete": "Delete",
+    "search": "Search",
+    "filter": "Filter",
+    "create": "Create",
+    "back": "Back",
+    "viewAll": "View All",
+    "viewDetails": "View Details",
+    "getStarted": "Get Started",
+    "learnMore": "Learn More",
+    "noActivity": "No recent activity.",
+    "active": "Active",
+    "inactive": "Inactive",
+    "status": "Status",
+    "date": "Date",
+    "amount": "Amount",
+    "unit": "Unit",
+    "currency": "Currency",
+    "delivery": "Delivery",
+    "paymentTerms": "Payment Terms",
+    "notes": "Notes",
+    "name": "Name",
+    "description": "Description",
+    "actions": "Actions",
+    "yes": "Yes",
+    "no": "No",
+    "close": "Close",
+    "confirm": "Confirm",
+    "approve": "Approve",
+    "reject": "Reject",
+    "award": "Award",
+    "shortlist": "Shortlist",
+    "download": "Download",
+    "upload": "Upload",
+    "send": "Send",
+    "reply": "Reply",
+    "searchPlaceholder": "Search...",
+    "noResults": "No results found",
+    "required": "Required",
+    "optional": "Optional",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "country": "Country",
+    "price": "Price",
+    "quantity": "Quantity"
+  },
+  "home": {
+    "badge": "Sudan's Premier B2B Trade Platform",
+    "hero": {
+      "title1": "The secure gateway to",
+      "title2": "global agricultural trade.",
+      "subtitle": "Connect directly with verified Sudanese exporters. Source premium sesame, gum arabic, groundnuts, hibiscus, and cotton with transparent RFQ workflows and secure communication.",
+      "cta1": "Start Sourcing",
+      "cta2": "View Commodities"
+    },
+    "stats": {
+      "commodities": "Core Commodities",
+      "countries": "Buyer Countries",
+      "verified": "Verified Suppliers",
+      "turnaround": "Avg. Quote Turnaround"
+    },
+    "commodities": {
+      "title": "Core Commodities",
+      "subtitle": "Sudan's five flagship agricultural export products.",
+      "viewAll": "View All"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "subtitle": "From RFQ to awarded deal in four steps — built for serious B2B trade.",
+      "step1": {
+        "step": "01",
+        "role": "Buyer",
+        "title": "Post an RFQ",
+        "description": "Describe your commodity requirements, quantity, and delivery terms. Publish to the supplier network."
+      },
+      "step2": {
+        "step": "02",
+        "role": "Supplier",
+        "title": "Submit a Quotation",
+        "description": "Verified Sudanese exporters respond with competitive bids, pricing, and delivery timelines."
+      },
+      "step3": {
+        "step": "03",
+        "role": "Buyer",
+        "title": "Compare & Award",
+        "description": "Review all quotations side by side and award the deal to the best offer with one click."
+      },
+      "step4": {
+        "step": "04",
+        "role": "Both",
+        "title": "Trade & Grow",
+        "description": "Communicate directly through the platform, manage documents, and build lasting trade relationships."
+      }
+    },
+    "features": {
+      "title": "Built for Serious Trade",
+      "subtitle": "Every feature is designed around the needs of professional B2B commodity trade.",
+      "item1": {
+        "title": "Verified Suppliers",
+        "description": "Every supplier is identity-checked and document-verified before they can access the platform."
+      },
+      "item2": {
+        "title": "Global Buyer Network",
+        "description": "Connect with pre-qualified buyers from 40+ countries actively sourcing Sudanese commodities."
+      },
+      "item3": {
+        "title": "Structured RFQ Workflow",
+        "description": "Post requests, receive competing quotations, compare offers, and award deals — all in one place."
+      }
+    },
+    "cta": {
+      "title": "Ready to start trading?",
+      "subtitle": "Join verified buyers and suppliers already transacting on Sudan Export Platform.",
+      "buyerBtn": "Start as a Buyer",
+      "supplierBtn": "Become a Supplier"
+    }
+  },
+  "about": {
+    "badge": "About Us",
+    "title": "Bridging Sudanese exporters with the world",
+    "subtitle": "Sudan Export Platform was founded to modernise agricultural commodity trade — replacing fragmented, opaque processes with a transparent, digital B2B marketplace that works for both exporters and international buyers.",
+    "mission": {
+      "title": "Our Mission",
+      "p1": "Sudan is one of Africa's largest producers of sesame seeds, gum arabic, groundnuts, hibiscus, and cotton — yet many of its exporters have lacked the tools and connections to reach premium international buyers efficiently.",
+      "p2": "Sudan Export Platform solves this by providing a secure, structured B2B marketplace where verified Sudanese suppliers can showcase their products, receive detailed sourcing requests, and compete for international contracts — all in one place.",
+      "p3": "Our platform handles the complexity of B2B trade: RFQ management, quotation comparison, document handling, supplier verification, and direct communication — so both sides can focus on what matters: the deal."
+    },
+    "stats": {
+      "commodities": "Core Commodities",
+      "countries": "Buyer Countries",
+      "suppliers": "Verified Suppliers",
+      "volume": "Trade Volume Facilitated"
+    },
+    "values": {
+      "title": "Our Values",
+      "item1": {
+        "title": "Trust & Verification",
+        "description": "Every supplier and buyer on the platform is identity-verified and document-checked. We maintain strict onboarding standards to protect all parties."
+      },
+      "item2": {
+        "title": "Global Reach",
+        "description": "We connect Sudanese agricultural exporters with buyers across 40+ countries — from Europe and North America to Asia and the Gulf."
+      },
+      "item3": {
+        "title": "Fair Trade",
+        "description": "Our transparent RFQ system ensures competitive, market-driven pricing without hidden middlemen or opaque markups."
+      },
+      "item4": {
+        "title": "Economic Growth",
+        "description": "We are committed to growing Sudan's agricultural export revenues by giving local producers direct access to international markets."
+      }
+    },
+    "journey": {
+      "title": "Our Journey",
+      "m1": { "year": "2022", "event": "Platform founded in Khartoum with a mission to digitise agricultural trade." },
+      "m2": { "year": "2023", "event": "First 50 verified suppliers onboarded across five core commodities." },
+      "m3": { "year": "2024", "event": "Expanded buyer network to 30+ countries; launched structured RFQ workflow." },
+      "m4": { "year": "2025", "event": "Reached USD 10M in facilitated trade volume; launched mobile access." }
+    },
+    "team": {
+      "title": "Leadership Team",
+      "member1": { "name": "Ahmed Al-Rasheed", "role": "Chief Executive Officer" },
+      "member2": { "name": "Sara Nour", "role": "Chief Operations Officer" },
+      "member3": { "name": "Omar Hassan", "role": "Head of Supplier Relations" },
+      "member4": { "name": "Fatima Khalid", "role": "Head of Buyer Relations" }
+    },
+    "cta": {
+      "title": "Join the Platform",
+      "subtitle": "Whether you're an international buyer or a Sudanese exporter, there's a place for you on Sudan Export Platform.",
+      "btn1": "Get Started",
+      "btn2": "Contact Us"
+    }
+  },
+  "products": {
+    "badge": "Commodities",
+    "title": "Sudan's Finest Agricultural Exports",
+    "subtitle": "Source premium quality commodities directly from verified Sudanese exporters. Browse our five flagship products and post an RFQ to receive competitive quotations.",
+    "noProducts": "No products available",
+    "unit": "Unit",
+    "viewDetails": "View Details",
+    "postRfq": "Post an RFQ",
+    "cta": {
+      "title": "Ready to source?",
+      "subtitle": "Post an RFQ and receive competitive quotations from verified Sudanese exporters within 48 hours.",
+      "btn1": "Post an RFQ",
+      "btn2": "Become a Supplier"
+    }
+  },
+  "productDetail": {
+    "back": "Back to Products",
+    "description": "About this Commodity",
+    "unit": "Trading Unit",
+    "specifications": "Specifications & Export Details",
+    "requestRfq": "Request a Quotation",
+    "becomeSupplier": "Become a Supplier",
+    "facts": {
+      "origin": "Origin Region",
+      "season": "Harvest Season",
+      "grade": "Grade / Type",
+      "export": "Export Packaging"
+    },
+    "notFound": "Product not found",
+    "notFoundDesc": "The product you're looking for doesn't exist or has been removed.",
+    "backToProducts": "Back to Products"
+  },
+  "faq": {
+    "badge": "FAQ",
+    "title": "Frequently Asked Questions",
+    "subtitle": "Everything you need to know about trading on Sudan Export Platform.",
+    "general": {
+      "title": "General",
+      "q1": "What is Sudan Export Platform?",
+      "a1": "Sudan Export Platform is a B2B marketplace that connects verified Sudanese agricultural exporters and suppliers with international buyers. We facilitate transparent RFQ (Request for Quotation) workflows, secure communication, and document management for commodity trade.",
+      "q2": "What commodities are available on the platform?",
+      "a2": "We currently support five core Sudanese agricultural commodities: Sesame Seeds, Gum Arabic, Groundnuts (Peanuts), Hibiscus (Karkadeh), and Cotton. We are continuously expanding our product range.",
+      "q3": "Is the platform free to use?",
+      "a3": "Registration and browsing are free. Trading fees and subscription details are available upon registration. Contact us for enterprise pricing."
+    },
+    "buyers": {
+      "title": "For Buyers",
+      "q1": "How do I post a Request for Quotation (RFQ)?",
+      "a1": "After registering as a buyer and completing your company profile, navigate to the Buyer Portal and click 'New RFQ'. Fill in the product details, required quantity, delivery terms, and submission deadline. Your RFQ will be visible to verified suppliers who can then submit competitive quotations.",
+      "q2": "How do I compare and award quotations?",
+      "a2": "Once suppliers submit quotations, you can view all responses in your RFQ detail page. The platform provides a side-by-side comparison view. When satisfied, click 'Award' on the preferred quotation. The winning supplier is notified automatically.",
+      "q3": "Are suppliers on the platform verified?",
+      "a3": "Yes. All suppliers must submit company registration documents and go through an admin verification process before they can submit quotations. Only verified suppliers are marked with a verified badge.",
+      "q4": "Can I communicate directly with suppliers?",
+      "a4": "Yes. Once you post an RFQ or receive quotations, you can message suppliers directly through the built-in messaging system in your buyer portal."
+    },
+    "suppliers": {
+      "title": "For Suppliers",
+      "q1": "How do I register as a supplier?",
+      "a1": "Click 'Become a Supplier' or 'Get Started', complete the registration form, then upload your company registration documents and commodity export certificates. Our admin team will review and verify your profile, typically within 2 business days.",
+      "q2": "How do I find and bid on RFQs?",
+      "a2": "After verification, log in to your supplier portal and browse open RFQs from international buyers. Filter by commodity type, quantity, or deadline. Click any RFQ to view full details and submit a competitive quotation.",
+      "q3": "What documents do I need to register?",
+      "a3": "You'll need: company registration certificate, tax ID, export licence (where applicable), and commodity-specific certificates (e.g. phytosanitary certificates for agricultural goods). Detailed requirements are listed during registration."
+    },
+    "platform": {
+      "title": "Platform & Security",
+      "q1": "How does the platform protect my data?",
+      "a1": "We use industry-standard encryption for all data in transit and at rest. Authentication is handled by Clerk, a leading identity platform. We never store payment card information and all API communications are secured with HTTPS.",
+      "q2": "What currencies does the platform support?",
+      "a2": "Quotations can be submitted in USD, EUR, GBP, and SAR. The system displays amounts in the currency chosen by the supplier. Currency conversion is not performed on-platform.",
+      "q3": "How do I contact support?",
+      "a3": "You can reach our support team through the Contact page, or email support@sudanexport.com. We aim to respond within one business day."
+    },
+    "cta": {
+      "title": "Still have questions?",
+      "subtitle": "Our team is ready to help. Reach out or register to get started.",
+      "btn1": "Contact Us",
+      "btn2": "Get Started"
+    }
+  },
+  "contact": {
+    "badge": "Contact Us",
+    "title": "Get in Touch",
+    "subtitle": "Have questions about trading on Sudan Export Platform? Our team is here to help.",
+    "form": {
+      "title": "Send Us a Message",
+      "name": "Full Name",
+      "namePh": "John Smith",
+      "email": "Email Address",
+      "emailPh": "info@company.com",
+      "subject": "Subject",
+      "subjectPh": "How can we help you?",
+      "message": "Message",
+      "messagePh": "Tell us more about your enquiry...",
+      "submit": "Send Message",
+      "success": "Thank you! We'll get back to you within one business day."
+    },
+    "info": {
+      "emailLabel": "Email",
+      "emailVal": "support@sudanexport.com",
+      "emailSub": "We reply within 1 business day",
+      "phoneLabel": "Phone",
+      "phoneVal": "+249 (0) 18 000 0000",
+      "phoneSub": "Sun–Thu, 8:00 – 17:00 (EAT)",
+      "addressLabel": "Address",
+      "addressVal": "Khartoum, Sudan",
+      "addressSub": "Export Trade Tower, Block 7",
+      "hoursLabel": "Office Hours",
+      "hoursVal": "Sun – Thu, 8:00 – 17:00",
+      "hoursSub": "Eastern Africa Time (UTC+3)"
+    }
+  },
+  "becomeSupplier": {
+    "badge": "For Suppliers",
+    "title": "Export Sudan's Finest Commodities to the World",
+    "subtitle": "Join hundreds of verified Sudanese exporters connecting with international buyers on a transparent, professional B2B platform.",
+    "cta1": "Register as a Supplier",
+    "cta2": "Talk to Our Team",
+    "why": {
+      "title": "Why Join as a Supplier?",
+      "subtitle": "Benefits designed for Sudanese exporters."
+    },
+    "benefits": {
+      "b1": { "title": "Access 40+ International Markets", "desc": "Connect directly with verified buyers from Europe, Asia, the Gulf, and North America looking for premium Sudanese commodities." },
+      "b2": { "title": "Grow Your Export Volume", "desc": "Receive structured RFQs with clear specifications, timelines, and quantities — so you can plan production and fulfil more orders." },
+      "b3": { "title": "Verified & Trusted Platform", "desc": "Your verified supplier badge builds buyer trust. Platform-facilitated contracts reduce risk and ensure timely payment terms." },
+      "b4": { "title": "Competitive Quotation System", "desc": "Submit competitive quotations directly in the platform. Compare your bids, track win rates, and optimise your pricing strategy." },
+      "b5": { "title": "Document Management", "desc": "Upload and manage phytosanitary certificates, packing lists, and quality certificates in one secure place — accessible to buyers during negotiation." },
+      "b6": { "title": "Dedicated Support", "desc": "Our team of trade specialists is available to help you onboard, optimise your profile, and close deals with international buyers." }
+    },
+    "eligibility": {
+      "title": "Eligibility Requirements",
+      "subtitle": "Make sure you meet the following requirements before applying.",
+      "items": [
+        "Valid company registration certificate",
+        "Export licence or permit",
+        "Tax identification number",
+        "Bank account information (for payments)",
+        "Product quality certificates or lab analysis reports",
+        "At least one active commodity for export"
+      ]
+    },
+    "steps": {
+      "title": "How to Register",
+      "subtitle": "Get started in four simple steps.",
+      "s1": { "step": "01", "title": "Register & Create Profile", "desc": "Sign up with your business email, complete your company profile, and describe the commodities you export." },
+      "s2": { "step": "02", "title": "Upload Documents", "desc": "Submit your company registration certificate, export licence, and any commodity-specific quality certifications." },
+      "s3": { "step": "03", "title": "Admin Verification", "desc": "Our team reviews your documents within 2 business days. You'll receive an email once your account is verified." },
+      "s4": { "step": "04", "title": "Browse & Quote", "desc": "Explore open RFQs from international buyers, submit competitive quotations, and start building global trade relationships." }
+    },
+    "final": {
+      "title": "Ready to grow your exports?",
+      "subtitle": "Join hundreds of verified suppliers benefiting from our international buyer network.",
+      "cta": "Get Started as a Supplier"
+    }
+  },
+  "becomeBuyer": {
+    "badge": "For Buyers",
+    "title": "Source Sudan's Finest Agricultural Commodities",
+    "subtitle": "Connect with trusted, verified sources for Sudanese commodities. Start sourcing today through our transparent B2B platform.",
+    "cta1": "Register as a Buyer",
+    "cta2": "View Commodities",
+    "why": {
+      "title": "Why Source from Sudan Export Platform?",
+      "subtitle": "Benefits designed for international buyers."
+    },
+    "benefits": {
+      "b1": { "title": "Direct Supplier Access", "desc": "Bypass traders and brokers. Connect directly with verified Sudanese exporters and negotiate better pricing and terms." },
+      "b2": { "title": "Structured RFQ Workflow", "desc": "Post a single RFQ and receive multiple competitive quotations. Compare offers side by side and award to the best supplier." },
+      "b3": { "title": "Verified Supplier Network", "desc": "Every supplier on the platform is identity-verified and document-checked. Trade with confidence, backed by platform guarantees." },
+      "b4": { "title": "Transparent Pricing", "desc": "See clear, itemised quotations from multiple suppliers. No hidden fees, no opaque markups — pure market pricing." },
+      "b5": { "title": "Built-in Trade Communication", "desc": "Negotiate, ask for samples, and finalise terms directly within the platform. All conversation history is preserved and searchable." },
+      "b6": { "title": "Fast Turnaround", "desc": "Set your own RFQ deadline and receive quotations quickly. Average response time from verified suppliers is under 48 hours." }
+    },
+    "steps": {
+      "title": "How to Get Started",
+      "subtitle": "Start sourcing in four simple steps.",
+      "s1": { "step": "01", "title": "Register & Verify", "desc": "Create your buyer account, provide company details, and verify your business identity. Takes under 5 minutes." },
+      "s2": { "step": "02", "title": "Post an RFQ", "desc": "Describe what you need: product, quantity, quality specs, delivery Incoterms, and deadline. Submit to the marketplace." },
+      "s3": { "step": "03", "title": "Compare Quotations", "desc": "Receive competitive quotations from verified suppliers. Compare pricing, delivery, and terms side by side." },
+      "s4": { "step": "04", "title": "Award & Trade", "desc": "Award the contract to your preferred supplier and begin the trade process — all tracked within the platform." }
+    },
+    "commodities": {
+      "title": "Available Commodities",
+      "subtitle": "Premium Sudanese agricultural exports available for sourcing."
+    },
+    "final": {
+      "title": "Ready to start sourcing?",
+      "subtitle": "Join international buyers who rely on quality and reliability in Sudanese agricultural commodities.",
+      "cta": "Register Now"
+    }
+  },
+  "buyer": {
+    "dashboard": {
+      "title": "Dashboard",
+      "openRfqs": "Open RFQs",
+      "pendingQuotations": "Pending Quotations",
+      "awardedDeals": "Awarded Deals",
+      "totalRfqs": "Total RFQs",
+      "recentActivity": "Recent Activity",
+      "noActivity": "No recent activity.",
+      "cta": {
+        "title": "Source Products",
+        "subtitle": "Create a new Request for Quotation to reach verified Sudanese suppliers.",
+        "btn": "Create RFQ"
+      }
+    },
+    "rfqs": {
+      "title": "My RFQs",
+      "createBtn": "Create RFQ",
+      "searchPlaceholder": "Search RFQs...",
+      "noRfqs": "No RFQs yet",
+      "noRfqsDesc": "Create your first RFQ to start receiving quotations from verified suppliers.",
+      "createFirst": "Create your first RFQ",
+      "cols": {
+        "ref": "Reference",
+        "title": "Title",
+        "status": "Status",
+        "quotes": "Quotes",
+        "deadline": "Deadline",
+        "created": "Created"
+      }
+    },
+    "newRfq": {
+      "title": "New RFQ",
+      "subtitle": "Post a new Request for Quotation to verified suppliers.",
+      "form": {
+        "product": "Product / Commodity",
+        "productPh": "Select a product",
+        "rfqTitle": "RFQ Title",
+        "rfqTitlePh": "e.g. 500 MT Sesame Seeds Q3 2025",
+        "description": "Description / Specifications",
+        "descriptionPh": "Describe your requirements in detail...",
+        "quantity": "Quantity",
+        "unit": "Unit",
+        "deliveryTerms": "Delivery Terms (Incoterms)",
+        "deliveryTermsPh": "e.g. CIF Rotterdam",
+        "destinationPort": "Destination Port / Country",
+        "destinationPortPh": "e.g. Rotterdam, Netherlands",
+        "currency": "Preferred Currency",
+        "deadline": "Submission Deadline",
+        "submit": "Post RFQ",
+        "cancel": "Cancel"
+      }
+    },
+    "quotations": {
+      "title": "Quotations",
+      "searchPlaceholder": "Search quotations...",
+      "noQuotations": "No quotations yet",
+      "cols": {
+        "rfq": "RFQ",
+        "supplier": "Supplier",
+        "amount": "Amount",
+        "status": "Status",
+        "submitted": "Submitted"
+      }
+    }
+  },
+  "supplier": {
+    "dashboard": {
+      "title": "Dashboard",
+      "rfqsReceived": "RFQs Received",
+      "pendingQuotes": "Pending Quotes",
+      "awarded": "Awarded",
+      "successRate": "Success Rate",
+      "recentActivity": "Recent Activity",
+      "noActivity": "No recent activity."
+    },
+    "rfqs": {
+      "title": "RFQs Received",
+      "searchPlaceholder": "Search RFQs...",
+      "noRfqs": "No open RFQs at the moment",
+      "noRfqsDesc": "Check back soon — new RFQs from buyers will appear here.",
+      "cols": {
+        "ref": "Reference",
+        "buyer": "Buyer",
+        "product": "Product",
+        "quantity": "Quantity",
+        "deadline": "Deadline",
+        "status": "Status"
+      }
+    },
+    "quotations": {
+      "title": "My Quotations",
+      "searchPlaceholder": "Search quotations...",
+      "noQuotations": "No quotations yet",
+      "cols": {
+        "rfq": "RFQ",
+        "amount": "Amount",
+        "status": "Status",
+        "submitted": "Submitted"
+      }
+    }
+  },
+  "admin": {
+    "dashboard": {
+      "title": "Dashboard",
+      "buyers": "Buyers",
+      "suppliers": "Suppliers",
+      "totalRfqs": "Total RFQs",
+      "deals": "Deals",
+      "pendingVerify": "Pending Verify",
+      "platformActivity": "Platform Activity"
+    },
+    "users": {
+      "title": "Users",
+      "searchPlaceholder": "Search users...",
+      "cols": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "status": "Status",
+        "joined": "Joined"
+      }
+    },
+    "companies": {
+      "title": "Companies",
+      "searchPlaceholder": "Search companies...",
+      "cols": {
+        "name": "Company",
+        "type": "Type",
+        "status": "Status",
+        "country": "Country",
+        "joined": "Joined"
+      }
+    },
+    "rfqs": {
+      "title": "All RFQs"
+    },
+    "quotations": {
+      "title": "All Quotations"
+    },
+    "products": {
+      "title": "Products"
+    },
+    "emailLogs": {
+      "title": "Email Logs"
+    },
+    "reports": {
+      "title": "Reports"
+    },
+    "auditLogs": {
+      "title": "Audit Logs"
+    },
+    "settings": {
+      "title": "Settings"
+    }
+  },
+  "rfqStatus": {
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "open": "Open",
+    "quoting": "Quoting",
+    "shortlisted": "Shortlisted",
+    "awarded": "Awarded",
+    "closed": "Closed",
+    "cancelled": "Cancelled"
+  },
+  "quotationStatus": {
+    "draft": "Draft",
+    "submitted": "Submitted",
+    "shortlisted": "Shortlisted",
+    "awarded": "Awarded",
+    "rejected": "Rejected"
+  }
+}

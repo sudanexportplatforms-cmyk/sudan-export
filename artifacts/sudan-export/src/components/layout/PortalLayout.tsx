@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import type React from "react";
 import { Link, useLocation } from "wouter";
 import { useUser, useClerk } from "@clerk/react";
+import { useTranslation } from "react-i18next";
 import {
   LayoutDashboard, FileText, Send, MessageSquare, Building2,
   Settings, Users, Package, FileCheck2, LogOut, Menu, X, Mail,
@@ -9,6 +10,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationBell from "./NotificationBell";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 type PortalRole = "buyer" | "supplier" | "admin";
 
@@ -18,44 +20,44 @@ interface PortalLayoutProps {
   children: React.ReactNode;
 }
 
-const navLinks: Record<PortalRole, { href: string; label: string; icon: React.ComponentType<{ className?: string }> }[]> = {
+const navLinks: Record<PortalRole, { href: string; key: string; icon: React.ComponentType<{ className?: string }> }[]> = {
   buyer: [
-    { href: "/buyer/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/buyer/rfqs", label: "My RFQs", icon: FileText },
-    { href: "/buyer/quotations", label: "Quotations", icon: Send },
-    { href: "/buyer/messages", label: "Messages", icon: MessageSquare },
-    { href: "/buyer/company", label: "Company Profile", icon: Building2 },
-    { href: "/buyer/documents", label: "Documents", icon: FileCheck2 },
-    { href: "/buyer/settings", label: "Settings", icon: Settings },
+    { href: "/buyer/dashboard", key: "dashboard", icon: LayoutDashboard },
+    { href: "/buyer/rfqs", key: "myRfqs", icon: FileText },
+    { href: "/buyer/quotations", key: "quotations", icon: Send },
+    { href: "/buyer/messages", key: "messages", icon: MessageSquare },
+    { href: "/buyer/company", key: "companyProfile", icon: Building2 },
+    { href: "/buyer/documents", key: "documents", icon: FileCheck2 },
+    { href: "/buyer/settings", key: "settings", icon: Settings },
   ],
   supplier: [
-    { href: "/supplier/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/supplier/rfqs", label: "RFQs Received", icon: FileText },
-    { href: "/supplier/quotations", label: "My Quotations", icon: Send },
-    { href: "/supplier/products", label: "Products", icon: Package },
-    { href: "/supplier/messages", label: "Messages", icon: MessageSquare },
-    { href: "/supplier/company", label: "Company Profile", icon: Building2 },
-    { href: "/supplier/documents", label: "Documents", icon: FileCheck2 },
-    { href: "/supplier/settings", label: "Settings", icon: Settings },
+    { href: "/supplier/dashboard", key: "dashboard", icon: LayoutDashboard },
+    { href: "/supplier/rfqs", key: "rfqsReceived", icon: FileText },
+    { href: "/supplier/quotations", key: "myQuotations", icon: Send },
+    { href: "/supplier/products", key: "products", icon: Package },
+    { href: "/supplier/messages", key: "messages", icon: MessageSquare },
+    { href: "/supplier/company", key: "companyProfile", icon: Building2 },
+    { href: "/supplier/documents", key: "documents", icon: FileCheck2 },
+    { href: "/supplier/settings", key: "settings", icon: Settings },
   ],
   admin: [
-    { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/users", label: "Users", icon: Users },
-    { href: "/admin/companies", label: "Companies", icon: Building2 },
-    { href: "/admin/products", label: "Products", icon: Package },
-    { href: "/admin/rfqs", label: "All RFQs", icon: FileText },
-    { href: "/admin/quotations", label: "All Quotations", icon: Send },
-    { href: "/admin/email-logs", label: "Email Logs", icon: Mail },
-    { href: "/admin/reports", label: "Reports", icon: BarChart3 },
-    { href: "/admin/audit-logs", label: "Audit Logs", icon: ClipboardList },
-    { href: "/admin/settings", label: "Settings", icon: Settings },
+    { href: "/admin/dashboard", key: "dashboard", icon: LayoutDashboard },
+    { href: "/admin/users", key: "users", icon: Users },
+    { href: "/admin/companies", key: "companies", icon: Building2 },
+    { href: "/admin/products", key: "products", icon: Package },
+    { href: "/admin/rfqs", key: "allRfqs", icon: FileText },
+    { href: "/admin/quotations", key: "allQuotations", icon: Send },
+    { href: "/admin/email-logs", key: "emailLogs", icon: Mail },
+    { href: "/admin/reports", key: "reports", icon: BarChart3 },
+    { href: "/admin/audit-logs", key: "auditLogs", icon: ClipboardList },
+    { href: "/admin/settings", key: "settings", icon: Settings },
   ],
 };
 
-const roleBadge: Record<PortalRole, { label: string; className: string }> = {
-  admin: { label: "Admin", className: "bg-red-100 text-red-700" },
-  buyer: { label: "Buyer", className: "bg-green-100 text-green-700" },
-  supplier: { label: "Supplier", className: "bg-blue-100 text-blue-700" },
+const roleBadgeClass: Record<PortalRole, string> = {
+  admin: "bg-red-100 text-red-700",
+  buyer: "bg-green-100 text-green-700",
+  supplier: "bg-blue-100 text-blue-700",
 };
 
 function SidebarContent({
@@ -65,22 +67,22 @@ function SidebarContent({
   onSignOut,
 }: {
   role: PortalRole;
-  links: typeof navLinks[PortalRole];
+  links: (typeof navLinks)[PortalRole];
   location: string;
   onSignOut: () => void;
 }) {
   const { user } = useUser();
-  const badge = roleBadge[role];
+  const { t } = useTranslation();
+  const badgeClass = roleBadgeClass[role];
 
   return (
     <>
       <div className="flex-1 overflow-y-auto py-3">
-        {/* Visit Website button */}
         <div className="px-3 mb-3">
           <Link href="/">
             <div className="flex items-center gap-2 px-3 py-2 rounded-md text-sm font-medium text-sidebar-foreground/60 hover:text-primary hover:bg-sidebar-accent transition-colors border border-sidebar-border">
-              <ExternalLink className="w-4 h-4" />
-              Visit Website
+              <ExternalLink className="w-4 h-4 shrink-0" />
+              {t("portal.visitWebsite")}
             </div>
           </Link>
         </div>
@@ -99,7 +101,7 @@ function SidebarContent({
                   }`}
                 >
                   <Icon className="w-4 h-4 shrink-0" />
-                  {link.label}
+                  {t(`portal.nav.${link.key}`)}
                 </div>
               </Link>
             );
@@ -116,10 +118,8 @@ function SidebarContent({
             <p className="text-sm font-medium text-sidebar-foreground truncate">
               {user?.fullName || "User"}
             </p>
-            <span
-              className={`inline-flex items-center mt-0.5 px-1.5 py-0.5 rounded text-xs font-medium ${badge.className}`}
-            >
-              {badge.label}
+            <span className={`inline-flex items-center mt-0.5 px-1.5 py-0.5 rounded text-xs font-medium ${badgeClass}`}>
+              {t(`portal.roles.${role}`)}
             </span>
           </div>
         </div>
@@ -128,8 +128,8 @@ function SidebarContent({
           className="w-full justify-start text-red-600 hover:text-red-700 hover:bg-red-50 text-sm h-9"
           onClick={onSignOut}
         >
-          <LogOut className="w-4 h-4 mr-2" />
-          Sign Out
+          <LogOut className="w-4 h-4 ltr:mr-2 rtl:ml-2" />
+          {t("portal.signOut")}
         </Button>
       </div>
     </>
@@ -140,6 +140,7 @@ export default function PortalLayout({ role, title, children }: PortalLayoutProp
   const { signOut } = useClerk();
   const [location] = useLocation();
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const { t } = useTranslation();
 
   const links = navLinks[role];
 
@@ -151,8 +152,8 @@ export default function PortalLayout({ role, title, children }: PortalLayoutProp
 
   return (
     <div className="min-h-screen bg-gray-50 flex">
-      {/* Sidebar (Desktop) */}
-      <aside className="hidden md:flex flex-col w-64 bg-sidebar border-r border-sidebar-border h-screen sticky top-0">
+      {/* Desktop Sidebar */}
+      <aside className="hidden md:flex flex-col w-64 bg-sidebar ltr:border-r rtl:border-l border-sidebar-border h-screen sticky top-0">
         <div className="h-16 flex items-center px-6 border-b border-sidebar-border bg-sidebar shrink-0">
           <Link href="/">
             <img src="/logo.svg" alt="Sudan Export" className="h-8" />
@@ -166,7 +167,7 @@ export default function PortalLayout({ role, title, children }: PortalLayoutProp
         />
       </aside>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Overlay */}
       {isMobileOpen && (
         <div
           className="fixed inset-0 z-40 bg-black/50 md:hidden"
@@ -176,8 +177,8 @@ export default function PortalLayout({ role, title, children }: PortalLayoutProp
 
       {/* Mobile Sidebar */}
       <aside
-        className={`fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-sidebar-border transform transition-transform duration-200 ease-in-out md:hidden flex flex-col ${
-          isMobileOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed inset-y-0 z-50 w-64 bg-sidebar border-sidebar-border transform transition-transform duration-200 ease-in-out md:hidden flex flex-col ltr:left-0 ltr:border-r rtl:right-0 rtl:border-l ${
+          isMobileOpen ? "translate-x-0" : "ltr:-translate-x-full rtl:translate-x-full"
         }`}
       >
         <div className="h-16 flex items-center justify-between px-6 border-b border-sidebar-border bg-sidebar shrink-0">
@@ -211,8 +212,9 @@ export default function PortalLayout({ role, title, children }: PortalLayoutProp
           <div className="flex items-center gap-2">
             <Link href="/" className="hidden sm:flex items-center gap-1.5 text-xs text-gray-500 hover:text-primary transition-colors px-2 py-1.5 rounded-md hover:bg-gray-50">
               <Globe className="w-3.5 h-3.5" />
-              Website
+              {t("portal.website")}
             </Link>
+            <LanguageSwitcher />
             <NotificationBell />
           </div>
         </header>

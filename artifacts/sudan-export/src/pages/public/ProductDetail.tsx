@@ -4,6 +4,7 @@ import { ArrowLeft, ArrowRight, Package, Globe2, Scale, Tag } from "lucide-react
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import PublicLayout from "@/components/layout/PublicLayout";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   params: { slug: string };
@@ -58,10 +59,11 @@ function normSlug(name: string) {
 
 export default function ProductDetail({ params }: Props) {
   const { data: products = [], isLoading } = useListProducts({ active: true });
+  const { t } = useTranslation();
   const slug = decodeURIComponent(params.slug).toLowerCase();
 
   const product = products.find((p) => normSlug(p.name) === slug);
-  const facts = productFacts[slug] ?? productFacts[Object.keys(productFacts).find(k => slug.includes(k.split("-")[0])) ?? ""] ?? null;
+  const facts = productFacts[slug] ?? productFacts[Object.keys(productFacts).find((k) => slug.includes(k.split("-")[0])) ?? ""] ?? null;
 
   if (isLoading) {
     return (
@@ -78,11 +80,12 @@ export default function ProductDetail({ params }: Props) {
       <PublicLayout>
         <div className="container mx-auto px-4 py-24 text-center">
           <Package className="w-12 h-12 text-gray-300 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">Product Not Found</h1>
-          <p className="text-gray-500 mb-6">The product you're looking for doesn't exist.</p>
+          <h1 className="text-2xl font-bold text-gray-900 mb-2">{t("productDetail.notFound")}</h1>
+          <p className="text-gray-500 mb-6">{t("productDetail.notFoundDesc")}</p>
           <Button asChild variant="outline">
             <Link href="/products">
-              <ArrowLeft className="mr-2 w-4 h-4" /> Back to Products
+              <ArrowLeft className="ltr:mr-2 rtl:ml-2 w-4 h-4 rtl:rotate-180" />
+              {t("productDetail.backToProducts")}
             </Link>
           </Button>
         </div>
@@ -94,8 +97,12 @@ export default function ProductDetail({ params }: Props) {
     <PublicLayout>
       <section className="pt-10 pb-4">
         <div className="container mx-auto px-4">
-          <Link href="/products" className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors mb-8">
-            <ArrowLeft className="w-4 h-4" /> Back to Products
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-1.5 text-sm text-gray-500 hover:text-primary transition-colors mb-8"
+          >
+            <ArrowLeft className="w-4 h-4 rtl:rotate-180" />
+            {t("productDetail.back")}
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
@@ -116,21 +123,20 @@ export default function ProductDetail({ params }: Props) {
               <h1 className="text-4xl font-bold text-gray-900 mt-3 mb-4">{product.name}</h1>
               <p className="text-gray-600 leading-relaxed mb-6">
                 {product.description ||
-                  `${product.name} is one of Sudan's premier export commodities, sourced from
-                  verified producers and traded globally through the Sudan Export Platform.`}
+                  `${product.name} is one of Sudan's premier export commodities, sourced from verified producers and traded globally.`}
               </p>
 
               <div className="grid grid-cols-2 gap-4 mb-6">
                 <div className="p-4 bg-gray-50 rounded-xl">
                   <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
-                    <Scale className="w-3.5 h-3.5" /> Unit
+                    <Scale className="w-3.5 h-3.5" /> {t("productDetail.unit")}
                   </div>
                   <p className="font-semibold text-gray-900">{product.unit}</p>
                 </div>
                 {facts && (
                   <div className="p-4 bg-gray-50 rounded-xl">
                     <div className="flex items-center gap-2 text-xs text-gray-400 mb-1">
-                      <Tag className="w-3.5 h-3.5" /> Grade
+                      <Tag className="w-3.5 h-3.5" /> {t("productDetail.facts.grade")}
                     </div>
                     <p className="font-semibold text-gray-900 text-sm leading-tight">{facts.grade}</p>
                   </div>
@@ -140,11 +146,11 @@ export default function ProductDetail({ params }: Props) {
               <div className="flex flex-col sm:flex-row gap-3">
                 <Button asChild className="bg-primary hover:bg-primary/90 h-11 flex-1">
                   <Link href="/sign-up">
-                    Post an RFQ <ArrowRight className="ml-2 w-4 h-4" />
+                    {t("productDetail.requestRfq")} <ArrowRight className="ltr:ml-2 rtl:mr-2 w-4 h-4 rtl:rotate-180" />
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="h-11">
-                  <Link href="/become-supplier">Become a Supplier</Link>
+                  <Link href="/become-supplier">{t("productDetail.becomeSupplier")}</Link>
                 </Button>
               </div>
             </div>
@@ -155,13 +161,13 @@ export default function ProductDetail({ params }: Props) {
       {facts && (
         <section className="py-12">
           <div className="container mx-auto px-4">
-            <h2 className="text-xl font-bold text-gray-900 mb-6">Commodity Overview</h2>
+            <h2 className="text-xl font-bold text-gray-900 mb-6">{t("productDetail.specifications")}</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {[
-                { icon: Globe2, label: "Origin", value: facts.origin },
-                { icon: Tag, label: "Grade", value: facts.grade },
-                { icon: Scale, label: "Export Formats", value: facts.export },
-                { icon: Package, label: "Peak Season", value: facts.season },
+                { icon: Globe2, label: t("productDetail.facts.origin"), value: facts.origin },
+                { icon: Tag, label: t("productDetail.facts.grade"), value: facts.grade },
+                { icon: Scale, label: t("productDetail.facts.export"), value: facts.export },
+                { icon: Package, label: t("productDetail.facts.season"), value: facts.season },
               ].map((item) => {
                 const Icon = item.icon;
                 return (
@@ -184,15 +190,14 @@ export default function ProductDetail({ params }: Props) {
       <section className="py-12 bg-primary">
         <div className="container mx-auto px-4 text-center max-w-xl">
           <h2 className="text-2xl font-bold text-white mb-3">
-            Ready to source {product.name}?
+            {t("productDetail.requestRfq")} — {product.name}
           </h2>
           <p className="text-green-200 mb-6 text-sm">
-            Register and post an RFQ to receive competitive quotations from verified Sudanese
-            exporters within 48 hours.
+            Register and post an RFQ to receive competitive quotations from verified Sudanese exporters within 48 hours.
           </p>
           <Button asChild className="bg-[#C9A24A] hover:bg-[#b88e3a] text-white border-0 h-11 px-8">
             <Link href="/sign-up">
-              Get Quotations <ArrowRight className="ml-2 w-4 h-4" />
+              {t("productDetail.requestRfq")} <ArrowRight className="ltr:ml-2 rtl:mr-2 w-4 h-4 rtl:rotate-180" />
             </Link>
           </Button>
         </div>

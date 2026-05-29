@@ -3,20 +3,23 @@ import type React from "react";
 import { Link } from "wouter";
 import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 interface PublicLayoutProps {
   children: React.ReactNode;
 }
 
-const navLinks = [
-  { href: "/products", label: "Products" },
-  { href: "/about", label: "About Us" },
-  { href: "/faq", label: "FAQ" },
-  { href: "/contact", label: "Contact" },
-];
+const navItems = [
+  { href: "/products", key: "products" },
+  { href: "/about", key: "aboutUs" },
+  { href: "/faq", key: "faq" },
+  { href: "/contact", key: "contact" },
+] as const;
 
 export default function PublicLayout({ children }: PublicLayoutProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
@@ -27,32 +30,32 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
               <img src="/logo.svg" alt="Sudan Export" className="h-10" />
             </Link>
             <nav className="hidden lg:flex items-center gap-6">
-              {navLinks.map((link) => (
+              {navItems.map((item) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={item.href}
+                  href={item.href}
                   className="text-sm font-medium text-gray-600 hover:text-primary transition-colors"
                 >
-                  {link.label}
+                  {t(`nav.${item.key}`)}
                 </Link>
               ))}
               <div className="relative group">
                 <button className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-primary transition-colors py-1">
-                  Join Platform <ChevronDown className="w-3.5 h-3.5" />
+                  {t("nav.joinPlatform")} <ChevronDown className="w-3.5 h-3.5" />
                 </button>
-                <div className="absolute top-full left-0 pt-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
+                <div className="absolute top-full ltr:left-0 rtl:right-0 pt-2 opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-50">
                   <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2 w-48">
                     <Link
                       href="/become-supplier"
                       className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
-                      Become a Supplier
+                      {t("nav.becomeSupplier")}
                     </Link>
                     <Link
                       href="/become-buyer"
                       className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary"
                     >
-                      Become a Buyer
+                      {t("nav.becomeBuyer")}
                     </Link>
                   </div>
                 </div>
@@ -61,14 +64,15 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
+            <LanguageSwitcher />
             <Link
               href="/sign-in"
               className="text-sm font-medium text-gray-600 hover:text-primary transition-colors px-3 py-2"
             >
-              Sign In
+              {t("nav.signIn")}
             </Link>
             <Button asChild size="sm" className="bg-primary hover:bg-primary/90 shadow-sm">
-              <Link href="/sign-up">Get Started</Link>
+              <Link href="/sign-up">{t("nav.getStarted")}</Link>
             </Button>
           </div>
 
@@ -84,14 +88,14 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
         {mobileOpen && (
           <div className="lg:hidden border-t border-gray-100 bg-white py-4">
             <div className="container mx-auto px-4 flex flex-col gap-1">
-              {navLinks.map((link) => (
+              {navItems.map((item) => (
                 <Link
-                  key={link.href}
-                  href={link.href}
+                  key={item.href}
+                  href={item.href}
                   onClick={() => setMobileOpen(false)}
                   className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
                 >
-                  {link.label}
+                  {t(`nav.${item.key}`)}
                 </Link>
               ))}
               <Link
@@ -99,21 +103,26 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
               >
-                Become a Supplier
+                {t("nav.becomeSupplier")}
               </Link>
               <Link
                 href="/become-buyer"
                 onClick={() => setMobileOpen(false)}
                 className="block px-3 py-2.5 text-sm font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md"
               >
-                Become a Buyer
+                {t("nav.becomeBuyer")}
               </Link>
-              <div className="mt-3 pt-3 border-t border-gray-100 flex gap-2">
+              <div className="mt-3 pt-3 border-t border-gray-100 flex gap-2 items-center">
+                <LanguageSwitcher variant="outline" className="shrink-0" />
                 <Button variant="outline" asChild className="flex-1">
-                  <Link href="/sign-in" onClick={() => setMobileOpen(false)}>Sign In</Link>
+                  <Link href="/sign-in" onClick={() => setMobileOpen(false)}>
+                    {t("nav.signIn")}
+                  </Link>
                 </Button>
                 <Button asChild className="flex-1 bg-primary hover:bg-primary/90">
-                  <Link href="/sign-up" onClick={() => setMobileOpen(false)}>Get Started</Link>
+                  <Link href="/sign-up" onClick={() => setMobileOpen(false)}>
+                    {t("nav.getStarted")}
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -133,64 +142,31 @@ export default function PublicLayout({ children }: PublicLayoutProps) {
                 className="h-10 mb-4 brightness-0 invert"
               />
               <p className="text-green-200 text-sm leading-relaxed max-w-sm">
-                Sudan's premier B2B marketplace connecting verified agricultural exporters with
-                global buyers. Transparent, secure, and efficient trade.
+                {t("footer.description")}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-4">Platform</h4>
+              <h4 className="font-semibold text-white mb-4">{t("footer.platform")}</h4>
               <ul className="space-y-2.5 text-sm text-green-200">
-                <li>
-                  <Link href="/products" className="hover:text-white transition-colors">
-                    Products
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/about" className="hover:text-white transition-colors">
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/faq" className="hover:text-white transition-colors">
-                    FAQ
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/contact" className="hover:text-white transition-colors">
-                    Contact
-                  </Link>
-                </li>
+                <li><Link href="/products" className="hover:text-white transition-colors">{t("nav.products")}</Link></li>
+                <li><Link href="/about" className="hover:text-white transition-colors">{t("nav.aboutUs")}</Link></li>
+                <li><Link href="/faq" className="hover:text-white transition-colors">{t("nav.faq")}</Link></li>
+                <li><Link href="/contact" className="hover:text-white transition-colors">{t("nav.contact")}</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-4">Join Us</h4>
+              <h4 className="font-semibold text-white mb-4">{t("footer.joinUs")}</h4>
               <ul className="space-y-2.5 text-sm text-green-200">
-                <li>
-                  <Link href="/become-supplier" className="hover:text-white transition-colors">
-                    Become a Supplier
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/become-buyer" className="hover:text-white transition-colors">
-                    Become a Buyer
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/sign-in" className="hover:text-white transition-colors">
-                    Sign In
-                  </Link>
-                </li>
-                <li>
-                  <Link href="/sign-up" className="hover:text-white transition-colors">
-                    Register
-                  </Link>
-                </li>
+                <li><Link href="/become-supplier" className="hover:text-white transition-colors">{t("nav.becomeSupplier")}</Link></li>
+                <li><Link href="/become-buyer" className="hover:text-white transition-colors">{t("nav.becomeBuyer")}</Link></li>
+                <li><Link href="/sign-in" className="hover:text-white transition-colors">{t("nav.signIn")}</Link></li>
+                <li><Link href="/sign-up" className="hover:text-white transition-colors">{t("nav.register")}</Link></li>
               </ul>
             </div>
           </div>
           <div className="border-t border-green-700 pt-6 flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-green-300">
-            <p>© {new Date().getFullYear()} Sudan Export Platform. All rights reserved.</p>
-            <p>Connecting Sudan to the world.</p>
+            <p>{t("footer.rights", { year: new Date().getFullYear() })}</p>
+            <p>{t("footer.tagline")}</p>
           </div>
         </div>
       </footer>
