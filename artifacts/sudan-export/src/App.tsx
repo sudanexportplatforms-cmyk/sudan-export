@@ -11,7 +11,12 @@ import NotFound from "@/pages/not-found";
 
 import Home from "@/pages/public/Home";
 import Products from "@/pages/public/Products";
+import ProductDetail from "@/pages/public/ProductDetail";
 import About from "@/pages/public/About";
+import FAQ from "@/pages/public/FAQ";
+import Contact from "@/pages/public/Contact";
+import BecomeSupplier from "@/pages/public/BecomeSupplier";
+import BecomeBuyer from "@/pages/public/BecomeBuyer";
 import Onboarding from "@/pages/auth/Onboarding";
 
 import BuyerDashboard from "@/pages/buyer/Dashboard";
@@ -38,7 +43,12 @@ import AdminDashboard from "@/pages/admin/Dashboard";
 import AdminUsers from "@/pages/admin/Users";
 import AdminCompanies from "@/pages/admin/Companies";
 import AdminRfqs from "@/pages/admin/Rfqs";
+import AdminQuotations from "@/pages/admin/Quotations";
+import AdminProducts from "@/pages/admin/Products";
 import AdminEmailLogs from "@/pages/admin/EmailLogs";
+import AdminReports from "@/pages/admin/Reports";
+import AdminAuditLogs from "@/pages/admin/AuditLogs";
+import AdminSettings from "@/pages/admin/Settings";
 
 const clerkPubKey = publishableKeyFromHost(
   window.location.hostname,
@@ -64,7 +74,7 @@ const clerkAppearance = {
     logoImageUrl: `${window.location.origin}${basePath}/logo.svg`,
   },
   variables: {
-    colorPrimary: "hsl(147 50% 24%)", // #1F5D3B
+    colorPrimary: "hsl(147 50% 24%)",
     colorForeground: "hsl(147 10% 15%)",
     colorMutedForeground: "hsl(147 5% 45%)",
     colorDanger: "hsl(0 84% 60%)",
@@ -167,7 +177,6 @@ function HomeRedirect() {
             {profile.role === 'admin' && <Redirect to="/admin/dashboard" />}
             {profile.role === 'buyer' && <Redirect to="/buyer/dashboard" />}
             {profile.role === 'supplier' && <Redirect to="/supplier/dashboard" />}
-            {/* Fallback if role is unmapped, though onboarding should prevent this */}
             {(!profile.role || !['admin', 'buyer', 'supplier'].includes(profile.role)) && <Redirect to="/onboarding" />}
           </>
         ) : (
@@ -221,12 +230,22 @@ function ClerkProviderWithRoutes() {
         <ClerkQueryClientCacheInvalidator />
         <TooltipProvider>
           <Switch>
+            {/* Root — redirect logged-in users, show public home for guests */}
             <Route path="/" component={HomeRedirect} />
+
+            {/* Auth */}
             <Route path="/sign-in/*?" component={SignInPage} />
             <Route path="/sign-up/*?" component={SignUpPage} />
             <Route path="/onboarding" component={Onboarding} />
+
+            {/* Public — static routes before parameterised */}
             <Route path="/products" component={Products} />
+            <Route path="/products/:slug" component={ProductDetail} />
             <Route path="/about" component={About} />
+            <Route path="/faq" component={FAQ} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/become-supplier" component={BecomeSupplier} />
+            <Route path="/become-buyer" component={BecomeBuyer} />
 
             {/* Buyer routes */}
             <Route path="/buyer/dashboard" component={BuyerDashboard} />
@@ -245,6 +264,7 @@ function ClerkProviderWithRoutes() {
             <Route path="/supplier/rfqs" component={SupplierRfqs} />
             <Route path="/supplier/quotations" component={SupplierQuotations} />
             <Route path="/supplier/messages" component={SupplierMessages} />
+            <Route path="/supplier/products" component={SupplierProducts} />
             <Route path="/supplier/company" component={SupplierCompany} />
             <Route path="/supplier/documents" component={SupplierDocuments} />
             <Route path="/supplier/settings" component={SupplierSettings} />
@@ -253,8 +273,13 @@ function ClerkProviderWithRoutes() {
             <Route path="/admin/dashboard" component={AdminDashboard} />
             <Route path="/admin/users" component={AdminUsers} />
             <Route path="/admin/companies" component={AdminCompanies} />
+            <Route path="/admin/products" component={AdminProducts} />
             <Route path="/admin/rfqs" component={AdminRfqs} />
+            <Route path="/admin/quotations" component={AdminQuotations} />
             <Route path="/admin/email-logs" component={AdminEmailLogs} />
+            <Route path="/admin/reports" component={AdminReports} />
+            <Route path="/admin/audit-logs" component={AdminAuditLogs} />
+            <Route path="/admin/settings" component={AdminSettings} />
 
             <Route component={NotFound} />
           </Switch>
