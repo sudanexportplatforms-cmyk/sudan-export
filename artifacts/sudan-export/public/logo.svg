@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
+  <path d="M25 45 C35 25, 45 15, 55 25 C65 35, 45 45, 35 55 C30 60, 20 55, 25 45 Z" fill="#C9A24A" />
+  <path d="M40 35 C50 15, 60 5, 70 15 C80 25, 60 35, 50 45 C45 50, 35 45, 40 35 Z" fill="#1F5D3B" />
+  <text x="85" y="42" font-family="sans-serif" font-weight="900" font-size="28" fill="#1F5D3B" letter-spacing="-0.02em">Sudan<tspan fill="#C9A24A">Export</tspan></text>
+</svg>

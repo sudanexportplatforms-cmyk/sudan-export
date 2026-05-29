@@ -1,0 +1,415 @@
+Sudan Export - Full Stack B2B Export Platform
+
+Build a production-ready full-stack web application called “Sudan Export”.
+
+Business Overview
+
+Sudan Export is a B2B export marketplace connecting Sudanese exporters and suppliers with international buyers.
+
+The first release should focus on:
+
+* Buyer RFQ Management
+* Supplier Management
+* Supplier Quotations
+* Admin Approval Workflow
+* Product Catalog
+* Company Verification
+* Email Notifications
+* Dashboard Reporting
+
+This is NOT an e-commerce store.
+
+The core workflow is:
+
+Buyer → RFQ → Suppliers → Quotations → Comparison → Selection → Deal
+
+⸻
+
+Technology Stack
+
+Frontend:
+
+* Next.js 15
+* TypeScript
+* Tailwind CSS
+* Shadcn UI
+
+Backend:
+
+* Supabase
+* PostgreSQL
+* Row Level Security (RLS)
+* Supabase Auth
+* Supabase Storage
+
+Infrastructure:
+
+* GitHub Repository
+* Environment Variables
+* Production Ready Structure
+
+⸻
+
+Brand Identity
+
+Company Name:
+Sudan Export
+
+Colors:
+
+Primary:
+#1F5D3B
+
+Accent:
+#C9A24A
+
+Background:
+#FFFFFF
+
+Style:
+Modern B2B
+Professional
+Clean
+Trustworthy
+
+⸻
+
+User Roles
+
+1. Admin
+
+Can:
+
+* Manage everything
+* Approve suppliers
+* Approve buyers
+* Manage products
+* Manage RFQs
+* View reports
+
+2. Supplier
+
+Can:
+
+* Manage company profile
+* Upload certificates
+* Manage products
+* Receive RFQs
+* Submit quotations
+* Track quotation status
+
+3. Buyer
+
+Can:
+
+* Manage company profile
+* Create RFQs
+* Compare quotations
+* Message suppliers
+* Track RFQ lifecycle
+
+⸻
+
+Main Products
+
+Create predefined products:
+
+1. Sesame
+2. Gum Arabic
+3. Groundnuts
+4. Hibiscus
+5. Cotton
+
+⸻
+
+Database Design
+
+Create all required tables with proper relationships.
+
+Tables:
+
+users
+
+profiles
+
+companies
+
+company_members
+
+products
+
+supplier_profiles
+
+buyer_profiles
+
+rfqs
+
+rfq_items
+
+supplier_invitations
+
+quotations
+
+quotation_items
+
+messages
+
+documents
+
+notifications
+
+audit_logs
+
+⸻
+
+Public Website Pages
+
+Home
+
+About Us
+
+Products
+
+Product Details
+
+Become a Supplier
+
+Become a Buyer
+
+Contact Us
+
+FAQ
+
+⸻
+
+Authentication
+
+Implement:
+
+* Email Registration
+* Email Login
+* Google Login
+* Forgot Password
+* Role Assignment
+
+Users select:
+
+Supplier
+
+or
+
+Buyer
+
+during registration.
+
+Admin role assigned manually.
+
+⸻
+
+Buyer Portal
+
+Dashboard
+
+Create RFQ
+
+RFQ Details
+
+RFQ History
+
+Quotation Comparison
+
+Messages
+
+Documents
+
+Company Profile
+
+Settings
+
+⸻
+
+Supplier Portal
+
+Dashboard
+
+Company Profile
+
+Certificates
+
+Products
+
+RFQs Received
+
+Submit Quotation
+
+Quotation History
+
+Messages
+
+Settings
+
+⸻
+
+Admin Portal
+
+Dashboard
+
+Users
+
+Companies
+
+Suppliers
+
+Buyers
+
+Products
+
+RFQs
+
+Quotations
+
+Reports
+
+Settings
+
+Audit Logs
+
+⸻
+
+RFQ Workflow
+
+1. Buyer creates RFQ
+2. Admin reviews
+3. Matching suppliers identified
+4. Suppliers notified
+5. Suppliers submit quotations
+6. Buyer compares quotations
+7. Buyer shortlists suppliers
+8. Buyer selects supplier
+9. RFQ closed
+
+Statuses:
+
+Draft
+
+Submitted
+
+Open
+
+Quoting
+
+Shortlisted
+
+Awarded
+
+Closed
+
+Cancelled
+
+⸻
+
+Documents
+
+Allow uploads:
+
+Company Registration
+
+Export License
+
+Certificates
+
+Product Specifications
+
+Packing Lists
+
+Quality Certificates
+
+Store in Supabase Storage.
+
+⸻
+
+Notifications
+
+In-App Notifications
+
+Email Notifications
+
+Events:
+
+Supplier Approved
+
+Supplier Rejected
+
+RFQ Created
+
+RFQ Invitation Sent
+
+Quotation Submitted
+
+Quotation Accepted
+
+Quotation Rejected
+
+RFQ Closed
+
+⸻
+
+Dashboard Analytics
+
+Total RFQs
+
+Open RFQs
+
+Closed RFQs
+
+Suppliers
+
+Buyers
+
+Quotations
+
+Products
+
+Recent Activity
+
+Charts
+
+KPIs
+
+⸻
+
+Security
+
+Implement:
+
+Row Level Security
+
+Role Based Access Control
+
+Protected Routes
+
+Secure API Design
+
+Audit Logs
+
+Input Validation
+
+⸻
+
+Important Instructions
+
+Build the application module by module.
+
+Start with:
+
+1. Database Schema
+2. Authentication
+3. User Roles
+4. Public Website
+5. Dashboard Layouts
+
+Do not generate mock functionality.
+
+Implement real database integration using Supabase.
+
+Commit code in a clean enterprise architecture suitable for future scaling.
