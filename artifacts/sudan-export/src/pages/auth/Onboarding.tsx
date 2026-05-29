@@ -6,8 +6,10 @@ import type { UserProfileInputRole } from "@workspace/api-client-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Building2, ShoppingCart } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 export default function Onboarding() {
+  const { t } = useTranslation();
   const { user, isLoaded } = useUser();
   const [, setLocation] = useLocation();
   const upsertProfile = useUpsertMyProfile();
@@ -58,9 +60,9 @@ export default function Onboarding() {
       
       <Card className="w-full max-w-2xl border-none shadow-xl">
         <CardHeader className="text-center pb-8">
-          <CardTitle className="text-3xl font-bold text-gray-900 tracking-tight">Welcome to Sudan Export</CardTitle>
+          <CardTitle className="text-3xl font-bold text-gray-900 tracking-tight">{t("onboarding.title")}</CardTitle>
           <CardDescription className="text-lg mt-2">
-            To get started, please tell us how you'll be using the platform.
+            {t("onboarding.subtitle")}
           </CardDescription>
         </CardHeader>
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6 p-8 pt-0">
@@ -75,9 +77,9 @@ export default function Onboarding() {
             <div className={`p-4 rounded-full mb-4 ${selectedRole === 'buyer' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'}`}>
               <ShoppingCart className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">I am a Buyer</h3>
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">{t("onboarding.buyer")}</h3>
             <p className="text-gray-500 text-sm">
-              I want to source premium agricultural commodities from verified Sudanese suppliers.
+              {t("onboarding.buyerDesc")}
             </p>
           </button>
 
@@ -92,21 +94,21 @@ export default function Onboarding() {
             <div className={`p-4 rounded-full mb-4 ${selectedRole === 'supplier' ? 'bg-primary text-white' : 'bg-gray-100 text-gray-600'}`}>
               <Building2 className="w-8 h-8" />
             </div>
-            <h3 className="text-xl font-semibold mb-2 text-gray-900">I am a Supplier</h3>
+            <h3 className="text-xl font-semibold mb-2 text-gray-900">{t("onboarding.supplier")}</h3>
             <p className="text-gray-500 text-sm">
-              I want to export Sudanese commodities and connect with international buyers.
+              {t("onboarding.supplierDesc")}
             </p>
           </button>
         </CardContent>
         <CardFooter className="bg-gray-50 border-t p-6 rounded-b-2xl flex justify-between items-center">
-          <p className="text-sm text-gray-500">You can update your company profile later.</p>
+          <p className="text-sm text-gray-500">{t("onboarding.footer")}</p>
           <Button 
             size="lg" 
             onClick={handleComplete} 
             disabled={!selectedRole || upsertProfile.isPending}
             className="px-8"
           >
-            {upsertProfile.isPending ? 'Setting up...' : 'Continue to Dashboard'}
+            {upsertProfile.isPending ? t("onboarding.settingUp") : t("onboarding.continue")}
           </Button>
         </CardFooter>
       </Card>

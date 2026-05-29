@@ -8,12 +8,14 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog";
-import { FileText, Download, Plus, Loader2, FileCheck2, FileUp } from "lucide-react";
+import { FileText, Download, Plus, Loader2, FileUp } from "lucide-react";
 import { format } from "date-fns";
 import { useToast } from "@/hooks/use-toast";
 import { getListDocumentsQueryKey } from "@workspace/api-client-react";
+import { useTranslation } from "react-i18next";
 
 export default function BuyerDocuments() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { data: documents = [], isLoading } = useListDocuments();
@@ -32,7 +34,7 @@ export default function BuyerDocuments() {
       data: { name, type, url }
     }, {
       onSuccess: () => {
-        toast({ title: "Document uploaded successfully" });
+        toast({ title: t("buyer.documents.uploadSuccess") });
         setIsOpen(false);
         setName("");
         setType("");
@@ -43,47 +45,47 @@ export default function BuyerDocuments() {
   };
 
   return (
-    <PortalLayout role="buyer" title="Documents & Compliance">
+    <PortalLayout role="buyer" title={t("buyer.documents.title")}>
       <div className="flex justify-between items-center mb-6">
-        <p className="text-gray-500">Manage your import licenses, company registrations, and compliance documents.</p>
+        <p className="text-gray-500">{t("buyer.documents.subtitle")}</p>
         <Dialog open={isOpen} onOpenChange={setIsOpen}>
           <DialogTrigger asChild>
             <Button>
-              <Plus className="w-4 h-4 mr-2" /> Upload Document
+              <Plus className="w-4 h-4 ltr:mr-2 rtl:ml-2" /> {t("buyer.documents.uploadBtn")}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>Upload Document</DialogTitle>
+              <DialogTitle>{t("buyer.documents.uploadTitle")}</DialogTitle>
             </DialogHeader>
             <form onSubmit={handleUpload} className="space-y-4 pt-4">
               <div className="space-y-2">
-                <Label>Document Name</Label>
-                <Input value={name} onChange={e => setName(e.target.value)} placeholder="e.g., Import License 2024" required />
+                <Label>{t("buyer.documents.docName")}</Label>
+                <Input value={name} onChange={e => setName(e.target.value)} placeholder={t("buyer.documents.docNamePlaceholder")} required />
               </div>
               <div className="space-y-2">
-                <Label>Document Type</Label>
+                <Label>{t("buyer.documents.docType")}</Label>
                 <Select value={type} onValueChange={setType} required>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select type" />
+                    <SelectValue placeholder={t("buyer.documents.selectType")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="registration">Company Registration</SelectItem>
-                    <SelectItem value="license">Import License</SelectItem>
-                    <SelectItem value="tax">Tax Certificate</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                    <SelectItem value="registration">{t("buyer.documents.types.registration")}</SelectItem>
+                    <SelectItem value="license">{t("buyer.documents.types.license")}</SelectItem>
+                    <SelectItem value="tax">{t("buyer.documents.types.tax")}</SelectItem>
+                    <SelectItem value="other">{t("buyer.documents.types.other")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               <div className="space-y-2">
-                <Label>File URL (Mock Upload)</Label>
+                <Label>{t("buyer.documents.fileUrl")}</Label>
                 <Input value={url} onChange={e => setUrl(e.target.value)} placeholder="https://..." required />
-                <p className="text-xs text-gray-500">In a real app, this would be a file picker that uploads to storage.</p>
+                <p className="text-xs text-gray-500">{t("buyer.documents.fileUrlHint")}</p>
               </div>
               <DialogFooter className="pt-4">
                 <Button type="submit" disabled={createDocument.isPending}>
-                  {createDocument.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                  Save Document
+                  {createDocument.isPending && <Loader2 className="w-4 h-4 ltr:mr-2 rtl:ml-2 animate-spin" />}
+                  {t("buyer.documents.saveDoc")}
                 </Button>
               </DialogFooter>
             </form>
@@ -102,20 +104,20 @@ export default function BuyerDocuments() {
               <div className="mx-auto w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                 <FileUp className="h-8 w-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Documents Uploaded</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("buyer.documents.noDocs")}</h3>
               <p className="text-gray-500 max-w-sm mx-auto mb-6">
-                Upload your company registration and import licenses to build trust with suppliers.
+                {t("buyer.documents.noDocsDesc")}
               </p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+              <table className="w-full text-sm text-left rtl:text-right">
                 <thead className="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100">
                   <tr>
-                    <th className="px-6 py-4 font-medium">Document Name</th>
-                    <th className="px-6 py-4 font-medium">Type</th>
-                    <th className="px-6 py-4 font-medium">Date Uploaded</th>
-                    <th className="px-6 py-4 font-medium text-right">Action</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.documents.cols.name")}</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.documents.cols.type")}</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.documents.cols.date")}</th>
+                    <th className="px-6 py-4 font-medium ltr:text-right rtl:text-left">{t("buyer.documents.cols.action")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
@@ -131,16 +133,16 @@ export default function BuyerDocuments() {
                       </td>
                       <td className="px-6 py-4">
                         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800 capitalize">
-                          {doc.type}
+                          {t(`buyer.documents.types.${doc.type}`, { defaultValue: doc.type })}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-gray-600">
                         {format(new Date(doc.createdAt), 'MMM d, yyyy')}
                       </td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-6 py-4 ltr:text-right rtl:text-left">
                         <Button variant="ghost" size="sm" asChild className="text-primary hover:text-primary hover:bg-primary/5">
                           <a href={doc.url} target="_blank" rel="noopener noreferrer">
-                            <Download className="w-4 h-4 mr-2" /> Download
+                            <Download className="w-4 h-4 ltr:mr-2 rtl:ml-2" /> {t("common.download")}
                           </a>
                         </Button>
                       </td>

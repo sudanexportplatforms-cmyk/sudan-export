@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, ArrowRight, Search, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const statusColors: Record<string, string> = {
   draft: "bg-gray-100 text-gray-800",
@@ -17,9 +18,8 @@ const statusColors: Record<string, string> = {
 };
 
 export default function SupplierQuotations() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
-  // In a real app we'd fetch only the supplier's quotations by passing supplierId,
-  // Assuming useListQuotations fetches the current user's quotes if supplier role
   const { data: quotations = [], isLoading } = useListQuotations();
 
   const filteredQuotes = quotations.filter(q => 
@@ -28,16 +28,16 @@ export default function SupplierQuotations() {
   );
 
   return (
-    <PortalLayout role="supplier" title="My Quotations">
+    <PortalLayout role="supplier" title={t("supplier.quotations.title")}>
       <div className="flex justify-between items-center gap-4 mb-6">
         <div className="flex items-center gap-2 flex-1 max-w-md">
           <div className="relative w-full">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute ltr:left-3 rtl:right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input 
-              placeholder="Search by RFQ title..." 
+              placeholder={t("supplier.quotations.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 bg-white"
+              className="ltr:pl-9 rtl:pr-9 bg-white"
             />
           </div>
           <Button variant="outline" size="icon" className="shrink-0 bg-white">
@@ -57,25 +57,25 @@ export default function SupplierQuotations() {
               <div className="mx-auto w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                 <FileText className="h-8 w-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Quotations Found</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("supplier.quotations.noQuotes")}</h3>
               <p className="text-gray-500 max-w-sm mx-auto mb-6">
-                You haven't submitted any quotations yet. Browse available RFQs to start quoting.
+                {t("supplier.quotations.noQuotesDesc")}
               </p>
               <Button asChild variant="outline">
-                <Link href="/supplier/rfqs">Browse RFQs</Link>
+                <Link href="/supplier/rfqs">{t("supplier.quotations.browseRfqs")}</Link>
               </Button>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+              <table className="w-full text-sm text-left rtl:text-right">
                 <thead className="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100">
                   <tr>
-                    <th className="px-6 py-4 font-medium">Quote Ref</th>
-                    <th className="px-6 py-4 font-medium">RFQ Title</th>
-                    <th className="px-6 py-4 font-medium">Total Value</th>
-                    <th className="px-6 py-4 font-medium">Status</th>
-                    <th className="px-6 py-4 font-medium">Submitted</th>
-                    <th className="px-6 py-4 font-medium text-right">Action</th>
+                    <th className="px-6 py-4 font-medium">{t("supplier.quotations.cols.ref")}</th>
+                    <th className="px-6 py-4 font-medium">{t("supplier.quotations.cols.rfqTitle")}</th>
+                    <th className="px-6 py-4 font-medium">{t("supplier.quotations.cols.total")}</th>
+                    <th className="px-6 py-4 font-medium">{t("supplier.quotations.cols.status")}</th>
+                    <th className="px-6 py-4 font-medium">{t("supplier.quotations.cols.submitted")}</th>
+                    <th className="px-6 py-4 font-medium ltr:text-right rtl:text-left">{t("supplier.quotations.cols.action")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
@@ -92,16 +92,16 @@ export default function SupplierQuotations() {
                       </td>
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium uppercase tracking-wider ${statusColors[quote.status] || 'bg-gray-100 text-gray-800'}`}>
-                          {quote.status}
+                          {t(`quotationStatus.${quote.status}`, { defaultValue: quote.status })}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-gray-600">
                         {format(new Date(quote.createdAt), 'MMM d, yyyy')}
                       </td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-6 py-4 ltr:text-right rtl:text-left">
                         <Button variant="ghost" size="sm" asChild className="text-primary hover:text-primary hover:bg-primary/5">
                           <Link href={`/supplier/rfqs/${quote.rfqId}`}>
-                            View RFQ <ArrowRight className="ml-1 w-4 h-4" />
+                            {t("common.viewRfq")} <ArrowRight className="ltr:ml-1 rtl:mr-1 w-4 h-4 rtl:rotate-180" />
                           </Link>
                         </Button>
                       </td>

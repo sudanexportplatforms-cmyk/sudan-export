@@ -3,11 +3,11 @@ import { Link } from "wouter";
 import { useListRfqs } from "@workspace/api-client-react";
 import PortalLayout from "@/components/layout/PortalLayout";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { Plus, FileText, Search, Filter } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const statusColors: Record<string, string> = {
   draft: "bg-gray-100 text-gray-800",
@@ -21,6 +21,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default function BuyerRfqs() {
+  const { t } = useTranslation();
   const [searchTerm, setSearchTerm] = useState("");
   const { data: rfqs = [], isLoading } = useListRfqs();
 
@@ -31,16 +32,16 @@ export default function BuyerRfqs() {
   );
 
   return (
-    <PortalLayout role="buyer" title="My RFQs">
+    <PortalLayout role="buyer" title={t("buyer.rfqs.title")}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
         <div className="flex w-full sm:w-auto items-center gap-2">
           <div className="relative w-full sm:w-80">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+            <Search className="absolute ltr:left-3 rtl:right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <Input 
-              placeholder="Search RFQs..." 
+              placeholder={t("buyer.rfqs.searchPlaceholder")}
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="pl-9 bg-white"
+              className="ltr:pl-9 rtl:pr-9 bg-white"
             />
           </div>
           <Button variant="outline" size="icon" className="shrink-0 bg-white">
@@ -49,8 +50,8 @@ export default function BuyerRfqs() {
         </div>
         <Button asChild className="w-full sm:w-auto">
           <Link href="/buyer/rfqs/new">
-            <Plus className="mr-2 h-4 w-4" />
-            Create RFQ
+            <Plus className="ltr:mr-2 rtl:ml-2 h-4 w-4" />
+            {t("buyer.rfqs.createBtn")}
           </Link>
         </Button>
       </div>
@@ -66,25 +67,25 @@ export default function BuyerRfqs() {
               <div className="mx-auto w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
                 <FileText className="h-8 w-8 text-gray-400" />
               </div>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No RFQs Found</h3>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("buyer.rfqs.noRfqs")}</h3>
               <p className="text-gray-500 max-w-sm mx-auto mb-6">
-                You haven't created any Requests for Quotation yet. Create one to start sourcing from verified suppliers.
+                {t("buyer.rfqs.noRfqsDesc")}
               </p>
               <Button asChild>
-                <Link href="/buyer/rfqs/new">Create Your First RFQ</Link>
+                <Link href="/buyer/rfqs/new">{t("buyer.rfqs.createFirst")}</Link>
               </Button>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+              <table className="w-full text-sm text-left rtl:text-right">
                 <thead className="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100">
                   <tr>
-                    <th className="px-6 py-4 font-medium">Reference</th>
-                    <th className="px-6 py-4 font-medium">Title</th>
-                    <th className="px-6 py-4 font-medium">Status</th>
-                    <th className="px-6 py-4 font-medium text-center">Quotes</th>
-                    <th className="px-6 py-4 font-medium">Deadline</th>
-                    <th className="px-6 py-4 font-medium text-right">Action</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.rfqs.cols.ref")}</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.rfqs.cols.title")}</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.rfqs.cols.status")}</th>
+                    <th className="px-6 py-4 font-medium text-center">{t("buyer.rfqs.cols.quotes")}</th>
+                    <th className="px-6 py-4 font-medium">{t("buyer.rfqs.cols.deadline")}</th>
+                    <th className="px-6 py-4 font-medium ltr:text-right rtl:text-left">{t("buyer.rfqs.cols.action")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
@@ -98,7 +99,7 @@ export default function BuyerRfqs() {
                       </td>
                       <td className="px-6 py-4">
                         <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[rfq.status] || 'bg-gray-100 text-gray-800'}`}>
-                          {rfq.status.charAt(0).toUpperCase() + rfq.status.slice(1)}
+                          {t(`rfqStatus.${rfq.status}`, { defaultValue: rfq.status })}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-center">
@@ -109,9 +110,9 @@ export default function BuyerRfqs() {
                       <td className="px-6 py-4 text-gray-600">
                         {rfq.validUntil ? format(new Date(rfq.validUntil), 'MMM d, yyyy') : 'N/A'}
                       </td>
-                      <td className="px-6 py-4 text-right">
+                      <td className="px-6 py-4 ltr:text-right rtl:text-left">
                         <Button variant="ghost" size="sm" asChild className="text-primary hover:text-primary hover:bg-primary/5">
-                          <Link href={`/buyer/rfqs/${rfq.id}`}>View Details</Link>
+                          <Link href={`/buyer/rfqs/${rfq.id}`}>{t("common.viewDetails")}</Link>
                         </Button>
                       </td>
                     </tr>

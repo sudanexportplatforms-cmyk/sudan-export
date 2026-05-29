@@ -12,10 +12,11 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
 import type { UserProfileInputRole } from "@workspace/api-client-react";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const profileSchema = z.object({
-  firstName: z.string().min(1, "First name is required"),
-  lastName: z.string().min(1, "Last name is required"),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
   phone: z.string().optional(),
   country: z.string().optional(),
 });
@@ -23,6 +24,7 @@ const profileSchema = z.object({
 type FormValues = z.infer<typeof profileSchema>;
 
 export default function SupplierSettings() {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const queryClient = useQueryClient();
   const { data: profile, isLoading } = useGetMyProfile();
@@ -30,12 +32,7 @@ export default function SupplierSettings() {
 
   const form = useForm<FormValues>({
     resolver: zodResolver(profileSchema),
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      phone: "",
-      country: "",
-    }
+    defaultValues: { firstName: "", lastName: "", phone: "", country: "" }
   });
 
   useEffect(() => {
@@ -50,14 +47,9 @@ export default function SupplierSettings() {
   }, [profile, form]);
 
   const onSubmit = (data: FormValues) => {
-    upsertProfile.mutate({ 
-      data: { 
-        ...data,
-        role: "supplier" as UserProfileInputRole
-      } 
-    }, {
+    upsertProfile.mutate({ data: { ...data, role: "supplier" as UserProfileInputRole } }, {
       onSuccess: () => {
-        toast({ title: "Settings saved successfully" });
+        toast({ title: t("supplier.settings.saveSuccess") });
         queryClient.invalidateQueries({ queryKey: getGetMyProfileQueryKey() });
       }
     });
@@ -65,81 +57,56 @@ export default function SupplierSettings() {
 
   if (isLoading) {
     return (
-      <PortalLayout role="supplier" title="Account Settings">
+      <PortalLayout role="supplier" title={t("supplier.settings.title")}>
         <div className="flex justify-center py-20"><div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" /></div>
       </PortalLayout>
     );
   }
 
   return (
-    <PortalLayout role="supplier" title="Account Settings">
+    <PortalLayout role="supplier" title={t("supplier.settings.title")}>
       <Card className="border-none shadow-sm max-w-2xl mb-8">
         <CardHeader>
-          <CardTitle>Personal Information</CardTitle>
-          <CardDescription>Update your personal details and contact information.</CardDescription>
+          <CardTitle>{t("supplier.settings.personalInfo")}</CardTitle>
+          <CardDescription>{t("supplier.settings.personalInfoDesc")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <FormField
-                  control={form.control}
-                  name="firstName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>First Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="lastName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Last Name</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone Number</FormLabel>
-                      <FormControl>
-                        <Input {...field} value={field.value || ''} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="country"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Country</FormLabel>
-                      <FormControl>
-                        <Input {...field} value={field.value || ''} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+                <FormField control={form.control} name="firstName" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("supplier.settings.firstName")}</FormLabel>
+                    <FormControl><Input {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="lastName" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("supplier.settings.lastName")}</FormLabel>
+                    <FormControl><Input {...field} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="phone" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("supplier.settings.phone")}</FormLabel>
+                    <FormControl><Input {...field} value={field.value || ''} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
+                <FormField control={form.control} name="country" render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>{t("supplier.settings.country")}</FormLabel>
+                    <FormControl><Input {...field} value={field.value || ''} /></FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )} />
               </div>
-
               <div className="flex justify-end">
                 <Button type="submit" disabled={upsertProfile.isPending}>
-                  {upsertProfile.isPending && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-                  Save Changes
+                  {upsertProfile.isPending && <Loader2 className="w-4 h-4 ltr:mr-2 rtl:ml-2 animate-spin" />}
+                  {t("common.saveChanges")}
                 </Button>
               </div>
             </form>
@@ -149,16 +116,16 @@ export default function SupplierSettings() {
       
       <Card className="border-none shadow-sm max-w-2xl border-red-100">
         <CardHeader>
-          <CardTitle className="text-red-600">Danger Zone</CardTitle>
-          <CardDescription>Irreversible account actions.</CardDescription>
+          <CardTitle className="text-red-600">{t("supplier.settings.dangerZone")}</CardTitle>
+          <CardDescription>{t("supplier.settings.dangerZoneDesc")}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex items-center justify-between border-t border-gray-100 pt-4">
             <div>
-              <p className="font-medium text-gray-900">Delete Account</p>
-              <p className="text-sm text-gray-500">Permanently delete your account and all data.</p>
+              <p className="font-medium text-gray-900">{t("supplier.settings.deleteAccount")}</p>
+              <p className="text-sm text-gray-500">{t("supplier.settings.deleteAccountDesc")}</p>
             </div>
-            <Button variant="destructive">Delete Account</Button>
+            <Button variant="destructive">{t("supplier.settings.deleteAccount")}</Button>
           </div>
         </CardContent>
       </Card>

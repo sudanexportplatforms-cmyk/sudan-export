@@ -6,6 +6,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Search, Send } from "lucide-react";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const statusColors: Record<string, string> = {
   draft: "bg-gray-100 text-gray-700",
@@ -16,6 +17,7 @@ const statusColors: Record<string, string> = {
 };
 
 export default function AdminQuotations() {
+  const { t } = useTranslation();
   const [search, setSearch] = useState("");
   const { data: quotations = [], isLoading } = useListQuotations();
 
@@ -27,15 +29,15 @@ export default function AdminQuotations() {
   );
 
   return (
-    <PortalLayout role="admin" title="All Quotations">
+    <PortalLayout role="admin" title={t("admin.quotations.title")}>
       <div className="mb-6">
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute ltr:left-3 rtl:right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search by RFQ or supplier..."
+            placeholder={t("admin.quotations.searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-9 bg-white"
+            className="ltr:pl-9 rtl:pr-9 bg-white"
           />
         </div>
       </div>
@@ -49,20 +51,20 @@ export default function AdminQuotations() {
           ) : filtered.length === 0 ? (
             <div className="text-center py-16 px-4">
               <Send className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Quotations Found</h3>
-              <p className="text-gray-500 text-sm">Quotations submitted by suppliers will appear here.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("admin.quotations.noQuotes")}</h3>
+              <p className="text-gray-500 text-sm">{t("admin.quotations.noQuotesDesc")}</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+              <table className="w-full text-sm text-left rtl:text-right">
                 <thead className="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100">
                   <tr>
-                    <th className="px-6 py-4 font-medium">RFQ</th>
-                    <th className="px-6 py-4 font-medium">Supplier</th>
-                    <th className="px-6 py-4 font-medium">Amount</th>
-                    <th className="px-6 py-4 font-medium">Delivery Days</th>
-                    <th className="px-6 py-4 font-medium">Status</th>
-                    <th className="px-6 py-4 font-medium">Submitted</th>
+                    <th className="px-6 py-4 font-medium">{t("admin.quotations.cols.rfq")}</th>
+                    <th className="px-6 py-4 font-medium">{t("admin.quotations.cols.supplier")}</th>
+                    <th className="px-6 py-4 font-medium">{t("admin.quotations.cols.amount")}</th>
+                    <th className="px-6 py-4 font-medium">{t("admin.quotations.cols.delivery")}</th>
+                    <th className="px-6 py-4 font-medium">{t("admin.quotations.cols.status")}</th>
+                    <th className="px-6 py-4 font-medium">{t("admin.quotations.cols.submitted")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
@@ -79,16 +81,10 @@ export default function AdminQuotations() {
                       <td className="px-6 py-4 font-medium text-gray-900">
                         {q.currency} {q.totalAmount?.toLocaleString() ?? "—"}
                       </td>
-                      <td className="px-6 py-4 text-gray-600">
-                        {q.deliveryTime ?? "—"}
-                      </td>
+                      <td className="px-6 py-4 text-gray-600">{q.deliveryTime ?? "—"}</td>
                       <td className="px-6 py-4">
-                        <span
-                          className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${
-                            statusColors[q.status] ?? "bg-gray-100 text-gray-700"
-                          }`}
-                        >
-                          {q.status}
+                        <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${statusColors[q.status] ?? "bg-gray-100 text-gray-700"}`}>
+                          {t(`quotationStatus.${q.status}`, { defaultValue: q.status })}
                         </span>
                       </td>
                       <td className="px-6 py-4 text-gray-500 text-xs">

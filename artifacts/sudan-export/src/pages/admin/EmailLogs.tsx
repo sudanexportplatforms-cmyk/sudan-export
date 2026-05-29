@@ -1,7 +1,6 @@
 import { useState } from "react";
 import PortalLayout from "@/components/layout/PortalLayout";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
@@ -11,9 +10,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Search, Mail, RefreshCw, CheckCircle2, XCircle, Clock, AlertCircle, SkipForward } from "lucide-react";
+import { Search, Mail, RefreshCw, CheckCircle2, XCircle, Clock, SkipForward } from "lucide-react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useToast } from "@/hooks/use-toast";
+import { useTranslation } from "react-i18next";
 
 interface EmailLog {
   id: number;
@@ -56,24 +56,17 @@ async function retryEmailLog(logId: number): Promise<EmailLog> {
   return res.json();
 }
 
-const statusConfig: Record<string, { label: string; className: string; Icon: React.ComponentType<{ className?: string }> }> = {
-  sent:    { label: "Sent",    className: "bg-green-100 text-green-700",  Icon: CheckCircle2 },
-  pending: { label: "Pending", className: "bg-amber-100 text-amber-700",  Icon: Clock },
-  failed:  { label: "Failed",  className: "bg-red-100 text-red-700",    Icon: XCircle },
-  skipped: { label: "Skipped", className: "bg-gray-100 text-gray-700",   Icon: SkipForward },
+const statusConfig: Record<string, { className: string; Icon: React.ComponentType<{ className?: string }> }> = {
+  sent:    { className: "bg-green-100 text-green-700",  Icon: CheckCircle2 },
+  pending: { className: "bg-amber-100 text-amber-700",  Icon: Clock },
+  failed:  { className: "bg-red-100 text-red-700",      Icon: XCircle },
+  skipped: { className: "bg-gray-100 text-gray-700",    Icon: SkipForward },
 };
 
-const eventLabels: Record<string, string> = {
-  rfq_opened:            "RFQ Opened",
-  quotation_submitted:   "Quotation Submitted",
-  quotation_awarded:     "Quotation Awarded",
-  rfq_closed:            "RFQ Closed",
-  rfq_cancelled:         "RFQ Cancelled",
-  company_approved:      "Company Approved",
-  company_rejected:      "Company Rejected",
-};
+const eventKeys = ["rfq_opened","quotation_submitted","quotation_awarded","rfq_closed","rfq_cancelled","company_approved","company_rejected"] as const;
 
 export default function AdminEmailLogs() {
+  const { t } = useTranslation();
   const [statusFilter, setStatusFilter] = useState("all");
   const [eventFilter, setEventFilter]   = useState("all");
   const [search, setSearch]             = useState("");
@@ -97,7 +90,7 @@ export default function AdminEmailLogs() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["email-logs"] });
       qc.invalidateQueries({ queryKey: ["email-logs-stats"] });
-      toast({ title: "Queued for retry" });
+      toast({ title: t("admin.emailLogs.queued") });
     },
   });
 
@@ -108,10 +101,9 @@ export default function AdminEmailLogs() {
   );
 
   return (
-    <PortalLayout role="admin" title="Email Logs">
-      {/* Stats row */}
+    <PortalLayout role="admin" title={t("admin.emailLogs.title")}>
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-        {["sent", "pending", "failed", "skipped"].map((s) => {
+        {(["sent", "pending", "failed", "skipped"] as const).map((s) => {
           const cfg = statusConfig[s];
           const Icon = cfg.Icon;
           return (
@@ -121,10 +113,8 @@ export default function AdminEmailLogs() {
                   <Icon className="w-5 h-5" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold text-gray-900">
-                    {stats?.byStatus?.[s] ?? 0}
-                  </p>
-                  <p className="text-xs text-gray-500 capitalize">{s}</p>
+                  <p className="text-2xl font-bold text-gray-900">{stats?.byStatus?.[s] ?? 0}</p>
+                  <p className="text-xs text-gray-500 capitalize">{t(`emailStatus.${s}`, { defaultValue: s })}</p>
                 </div>
               </CardContent>
             </Card>
@@ -132,37 +122,35 @@ export default function AdminEmailLogs() {
         })}
       </div>
 
-      {/* Filters */}
       <div className="flex flex-wrap gap-3 mb-6">
         <div className="relative w-full sm:w-72">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+          <Search className="absolute ltr:left-3 rtl:right-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search by email or event..."
+            placeholder={t("admin.emailLogs.searchPlaceholder")}
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="pl-9 bg-white"
+            className="ltr:pl-9 rtl:pr-9 bg-white"
           />
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-40 bg-white">
-            <SelectValue placeholder="Status" />
+            <SelectValue placeholder={t("admin.emailLogs.statusFilter")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="sent">Sent</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="failed">Failed</SelectItem>
-            <SelectItem value="skipped">Skipped</SelectItem>
+            <SelectItem value="all">{t("admin.emailLogs.allStatuses")}</SelectItem>
+            {(["sent","pending","failed","skipped"] as const).map(s => (
+              <SelectItem key={s} value={s}>{t(`emailStatus.${s}`, { defaultValue: s })}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <Select value={eventFilter} onValueChange={setEventFilter}>
           <SelectTrigger className="w-52 bg-white">
-            <SelectValue placeholder="Event Type" />
+            <SelectValue placeholder={t("admin.emailLogs.eventFilter")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Events</SelectItem>
-            {Object.entries(eventLabels).map(([k, v]) => (
-              <SelectItem key={k} value={k}>{v}</SelectItem>
+            <SelectItem value="all">{t("admin.emailLogs.allEvents")}</SelectItem>
+            {eventKeys.map((k) => (
+              <SelectItem key={k} value={k}>{t(`emailEvent.${k}`, { defaultValue: k })}</SelectItem>
             ))}
           </SelectContent>
         </Select>
@@ -171,7 +159,6 @@ export default function AdminEmailLogs() {
         </Button>
       </div>
 
-      {/* Table */}
       <Card className="border-none shadow-sm">
         <CardContent className="p-0">
           {isLoading ? (
@@ -181,21 +168,21 @@ export default function AdminEmailLogs() {
           ) : filtered.length === 0 ? (
             <div className="text-center py-16 px-4">
               <Mail className="h-12 w-12 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">No Email Logs</h3>
-              <p className="text-gray-500 text-sm">Email notifications will appear here once triggered.</p>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{t("admin.emailLogs.noLogs")}</h3>
+              <p className="text-gray-500 text-sm">{t("admin.emailLogs.noLogsDesc")}</p>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm text-left">
+              <table className="w-full text-sm text-left rtl:text-right">
                 <thead className="text-xs text-gray-500 uppercase bg-gray-50/50 border-b border-gray-100">
                   <tr>
-                    <th className="px-5 py-4 font-medium">Recipient</th>
-                    <th className="px-5 py-4 font-medium">Event</th>
-                    <th className="px-5 py-4 font-medium">Entity</th>
-                    <th className="px-5 py-4 font-medium">Status</th>
-                    <th className="px-5 py-4 font-medium">Sent At</th>
-                    <th className="px-5 py-4 font-medium">Created</th>
-                    <th className="px-5 py-4 font-medium text-right">Actions</th>
+                    <th className="px-5 py-4 font-medium">{t("admin.emailLogs.cols.recipient")}</th>
+                    <th className="px-5 py-4 font-medium">{t("admin.emailLogs.cols.event")}</th>
+                    <th className="px-5 py-4 font-medium">{t("admin.emailLogs.cols.entity")}</th>
+                    <th className="px-5 py-4 font-medium">{t("admin.emailLogs.cols.status")}</th>
+                    <th className="px-5 py-4 font-medium">{t("admin.emailLogs.cols.sentAt")}</th>
+                    <th className="px-5 py-4 font-medium">{t("admin.emailLogs.cols.created")}</th>
+                    <th className="px-5 py-4 font-medium ltr:text-right rtl:text-left">{t("admin.emailLogs.cols.actions")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100 bg-white">
@@ -209,7 +196,7 @@ export default function AdminEmailLogs() {
                         </td>
                         <td className="px-5 py-3">
                           <span className="text-xs font-medium text-gray-600 bg-gray-100 px-2 py-1 rounded">
-                            {eventLabels[log.eventType] ?? log.eventType}
+                            {t(`emailEvent.${log.eventType}`, { defaultValue: log.eventType })}
                           </span>
                         </td>
                         <td className="px-5 py-3 text-gray-500 text-xs capitalize">
@@ -218,7 +205,7 @@ export default function AdminEmailLogs() {
                         <td className="px-5 py-3">
                           <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${cfg.className}`}>
                             <Icon className="w-3 h-3" />
-                            {cfg.label}
+                            {t(`emailStatus.${log.status}`, { defaultValue: log.status })}
                           </span>
                           {log.errorMessage && (
                             <p className="text-xs text-red-500 mt-1 max-w-[160px] truncate" title={log.errorMessage}>
@@ -232,7 +219,7 @@ export default function AdminEmailLogs() {
                         <td className="px-5 py-3 text-gray-500 text-xs">
                           {new Date(log.createdAt).toLocaleString()}
                         </td>
-                        <td className="px-5 py-3 text-right">
+                        <td className="px-5 py-3 ltr:text-right rtl:text-left">
                           {(log.status === "failed" || log.status === "skipped") && (
                             <Button
                               size="sm"
@@ -241,7 +228,7 @@ export default function AdminEmailLogs() {
                               disabled={retry.isPending}
                               onClick={() => retry.mutate(log.id)}
                             >
-                              <RefreshCw className="w-3 h-3 mr-1" /> Retry
+                              <RefreshCw className="w-3 h-3 ltr:mr-1 rtl:ml-1" /> {t("admin.emailLogs.retry")}
                             </Button>
                           )}
                         </td>
