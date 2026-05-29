@@ -2,6 +2,7 @@ import { db } from "@workspace/db";
 import { emailLogsTable, usersTable, rfqsTable, rfqItemsTable, quotationsTable, companiesTable, productsTable } from "@workspace/db";
 import { eq, and, sql } from "drizzle-orm";
 import { sendEmail } from "./emailSender";
+import { markEmailWorkerStarted } from "./workerState";
 import {
   buildRfqOpenedEmail,
   buildQuotationSubmittedEmail,
@@ -165,6 +166,7 @@ export function startEmailWorker() {
     }
   }, 30_000); // run every 30 seconds
 
+  markEmailWorkerStarted();
   logger.info("Email background worker started");
 }
 
