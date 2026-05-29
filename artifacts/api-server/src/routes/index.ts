@@ -9,6 +9,7 @@ import messagesRouter from "./messages";
 import notificationsRouter from "./notifications";
 import dashboardRouter from "./dashboard";
 import documentsRouter from "./documents";
+import emailLogsRouter from "./email_logs";
 
 const router: IRouter = Router();
 
@@ -22,5 +23,6 @@ router.use("/messages", messagesRouter);
 router.use("/notifications", notificationsRouter);
 router.use("/dashboard", dashboardRouter);
 router.use("/documents", documentsRouter);
+router.use("/email-logs", emailLogsRouter);
 
 export default router;

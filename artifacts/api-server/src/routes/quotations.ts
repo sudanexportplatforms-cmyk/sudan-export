@@ -11,6 +11,7 @@ import {
 } from "@workspace/db";
 import { eq } from "drizzle-orm";
 import { requireAuth, type AuthRequest } from "../middlewares/requireAuth";
+import { notifyQuotationSubmitted, notifyQuotationAwarded } from "../lib/emailQueue";
 
 const router = Router();
 
@@ -93,6 +94,9 @@ router.post("/rfqs/:rfqId/quotations", requireAuth, async (req: AuthRequest, res
     .where(eq(rfqsTable.id, rfqId));
 
   res.status(201).json(await enrichQuotation(quotation));
+
+  // Fire-and-forget — notify the buyer
+  void notifyQuotationSubmitted(quotation.id);
 });
 
 // GET /api/quotations
@@ -169,6 +173,11 @@ router.patch("/:quotationId/status", requireAuth, async (req: AuthRequest, res) 
     await db.update(rfqsTable).set({ status: "awarded" }).where(eq(rfqsTable.id, updated.rfqId));
   }
   res.json(await enrichQuotation(updated));
+
+  // Fire-and-forget — notify awarded supplier
+  if (status === "awarded") {
+    void notifyQuotationAwarded(updated.id);
+  }
 });
 
 export default router;

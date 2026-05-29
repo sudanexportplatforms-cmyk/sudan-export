@@ -38,6 +38,7 @@ import AdminDashboard from "@/pages/admin/Dashboard";
 import AdminUsers from "@/pages/admin/Users";
 import AdminCompanies from "@/pages/admin/Companies";
 import AdminRfqs from "@/pages/admin/Rfqs";
+import AdminEmailLogs from "@/pages/admin/EmailLogs";
 
 const clerkPubKey = publishableKeyFromHost(
   window.location.hostname,
@@ -253,6 +254,7 @@ function ClerkProviderWithRoutes() {
             <Route path="/admin/users" component={AdminUsers} />
             <Route path="/admin/companies" component={AdminCompanies} />
             <Route path="/admin/rfqs" component={AdminRfqs} />
+            <Route path="/admin/email-logs" component={AdminEmailLogs} />
 
             <Route component={NotFound} />
           </Switch>

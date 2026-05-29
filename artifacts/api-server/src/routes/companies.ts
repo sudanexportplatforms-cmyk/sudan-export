@@ -3,6 +3,7 @@ import { db } from "@workspace/db";
 import { companiesTable, usersTable } from "@workspace/db";
 import { eq } from "drizzle-orm";
 import { requireAuth, type AuthRequest } from "../middlewares/requireAuth";
+import { notifyCompanyVerified } from "../lib/emailQueue";
 
 const router = Router();
 
@@ -118,6 +119,9 @@ router.patch("/:companyId/verify", requireAuth, async (req: AuthRequest, res) =>
     return;
   }
   res.json(formatCompany(updated));
+
+  // Fire-and-forget — notify company owner
+  void notifyCompanyVerified(id, action === "approve");
 });
 
 export default router;

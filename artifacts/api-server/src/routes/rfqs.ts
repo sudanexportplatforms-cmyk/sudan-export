@@ -10,6 +10,7 @@ import {
 } from "@workspace/db";
 import { eq, and, sql } from "drizzle-orm";
 import { requireAuth, type AuthRequest } from "../middlewares/requireAuth";
+import { notifyRfqOpened, notifyRfqStatusChange } from "../lib/emailQueue";
 
 const router = Router();
 
@@ -111,6 +112,9 @@ router.post("/", requireAuth, async (req: AuthRequest, res) => {
 
   const enriched = await enrichRfq(rfq);
   res.status(201).json(enriched);
+
+  // Fire-and-forget email notifications to approved suppliers
+  void notifyRfqOpened(rfq.id);
 });
 
 // GET /api/rfqs/:rfqId
@@ -171,6 +175,11 @@ router.patch("/:rfqId/status", requireAuth, async (req: AuthRequest, res) => {
   const [updated] = await db.update(rfqsTable).set({ status }).where(eq(rfqsTable.id, id)).returning();
   if (!updated) { res.status(404).json({ error: "RFQ not found" }); return; }
   res.json(await enrichRfq(updated));
+
+  // Notify on close/cancel
+  if (status === "closed" || status === "cancelled") {
+    void notifyRfqStatusChange(id, status as "closed" | "cancelled");
+  }
 });
 
 // GET /api/rfqs/:rfqId/quotations

@@ -6,3 +6,4 @@ export * from "./quotations";
 export * from "./messages";
 export * from "./notifications";
 export * from "./documents";
+export * from "./email_logs";

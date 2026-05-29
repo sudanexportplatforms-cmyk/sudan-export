@@ -4,7 +4,7 @@ import { Link, useLocation } from "wouter";
 import { useUser, useClerk } from "@clerk/react";
 import { 
   LayoutDashboard, FileText, Send, MessageSquare, Building2, 
-  Settings, Users, Package, FileCheck2, LogOut, Bell, Menu, X 
+  Settings, Users, Package, FileCheck2, LogOut, Bell, Menu, X, Mail
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import NotificationBell from "./NotificationBell";
@@ -45,6 +45,7 @@ const navLinks: Record<PortalRole, { href: string; label: string; icon: React.Co
     { href: "/admin/rfqs", label: "All RFQs", icon: FileText },
     { href: "/admin/quotations", label: "All Quotations", icon: Send },
     { href: "/admin/documents", label: "Documents", icon: FileCheck2 },
+    { href: "/admin/email-logs", label: "Email Logs", icon: Mail },
   ],
 };
 
